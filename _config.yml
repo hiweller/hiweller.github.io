@@ -1,0 +1,3 @@
+name: Hannah Weller
+markdown: kramdown
+permalink: /blog/:year/:month/:day/:title
