@@ -1,7 +1,7 @@
 ---
 title: "Matt Cartmill, on being a scientist"
 categories:
-  - Blog
+  - blog
 tags:
   - quote
   - misc

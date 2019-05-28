@@ -2,7 +2,7 @@
 title: "Lewis Thomas: On Ponds"
 excerpt_separator: "<!--more-->"
 categories:
-  - Blog
+  - blog
 tags:
   - lewis thomas
   - misc
