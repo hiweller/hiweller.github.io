@@ -1,12 +1,11 @@
 ---
-title: "Post: Quote"
+title: "ah"
 categories:
   - Blog
 tags:
-  - Post Formats
   - quote
 ---
 
-> Only one thing is impossible for God: To find any sense in any copyright law on the planet.
-  
-> <cite><a href="http://www.brainyquote.com/quotes/quotes/m/marktwain163473.html">Mark Twain</a></cite>
+> As an adolescent I aspired to lasting fame, I craved factual certainty, and I thirsted for a meaningful vision of human life—so I became a scientist. This is like becoming an archbishop so you can meet girls.
+
+> <cite>Matt Cartmill</cite>

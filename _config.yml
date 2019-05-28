@@ -3,7 +3,7 @@ title: Red Herring
 author:
   name   : "Hannah Weller"
   avatar : "/assets/images/WellerH_profile_photo_SICB2019.JPG"
-  bio    : "Graduate student, ginger nut, aquatic lunatic, etc"
+  bio    : "Grad student at Brown University, studying how behavior ⟷ morphology."
   location: "Brown University, Providence, RI"
   links:
     - label: "Website"
@@ -31,10 +31,9 @@ footer:
 
 email: hannahiweller@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Graduate student, ginger nut, aquatic lunatic, etc
 twitter_username: hannahiweller
 github_username: hiweller
-minimal_mistakes_skin: dark
+minimal_mistakes_skin: air
 search: true
 
 # Build settings
@@ -72,7 +71,7 @@ plugins:
   - jekyll-include-cache
 
 
-teaser: /assets/images/holy-worm.jpg
+teaser: /assets/images/holy_worm.jpg
 defaults:
   # _posts
   - scope:
@@ -83,7 +82,7 @@ defaults:
       author_profile: true
       read_time: true
       comments: false
-      share: true
+      share: false
       related: true
   # _pages
   - scope:
