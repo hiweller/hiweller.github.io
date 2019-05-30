@@ -14,7 +14,7 @@ The GitHub Pages site repository for Hannah Weller (me), a [graduate student in 
 
 It's for me (Hannah Weller) to store information relevant to my research career. The tutorials and code posts are for people trying to use my [R](https://CRAN.R-project.org/package=colordistance) [packages](https://CRAN.R-project.org/package=countcolors), recreate my results, or otherwise troubleshoot my code. The CV, about page, and research project descriptions are to make myself accessible as an academic creature, and also to keep me honest.
 
-### Uh, sorry, how do I get to the actual webpage?
+### Where's the actual site?
 
 Click: [https://hiweller.github.io](https://hiweller.github.io)
 

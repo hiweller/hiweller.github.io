@@ -16,12 +16,12 @@ redirect_from:
 Education
 ---------
 
-2017-Present
+2017—Present
 :   **Graduate student, Ecology and Evolutionary Biology**; Brown University (Providence, RI)
 
     *Thesis: Functional morphology of mouthbrooding in fishes*
 
-2007-2010
+2007—2010
 :   **Honors BSc, Biology**; University of Chicago (Chicago, IL)
 
     *Honors thesis: Winnowing in the geophagine cichlid Satanoperca daemon*
@@ -62,25 +62,25 @@ Orleans, LA.*
 
 Awards and Fellowships
 ----------------------
-**Graduate Research Fellowship** (National Science Foundation)
+**Graduate Research Fellowship** (National Science Foundation)  
   $138,000, awarded April 2019
 
-**Field Museum Visiting Scientist Scholarship** (Field Museum of Natural History)
+**Field Museum Visiting Scientist Scholarship** (Field Museum of Natural History)  
   $1,500, awarded December 2018
 
-**Jeff Metcalf Undergraduate Research Fellowship** (Marine Biological Laboratory)
+**Jeff Metcalf Undergraduate Research Fellowship** (Marine Biological Laboratory)  
   $5,000, awarded June 2015
 
-**Presidential Fellowship** (Brown University)
+**Presidential Fellowship** (Brown University)  
   $108,000, awarded May 2017
 
-**Elected to Phi Beta Kappa Society**
+**Elected to Phi Beta Kappa Society**  
   March 2015
 
-**Best Presentation, Undergraduate Research Symposium** (University of Chicago)
+**Best Presentation, Undergraduate Research Symposium** (University of Chicago)  
   $150, awarded September 2014
 
-**Elliott and Eileen Hinkes Research Fellowship** (University of Chicago)
+**Elliott and Eileen Hinkes Research Fellowship** (University of Chicago)  
   $4,000, awarded June 2014
 
 Research experience
