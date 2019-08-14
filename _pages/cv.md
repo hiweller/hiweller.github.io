@@ -24,6 +24,8 @@ Education
 
 Peer-reviewed publications
 --------------------------
+van Meer, N.M., **Weller, H.I.**, Manafzadeh, A.R., Kaczmarek, E.B., Scott, B., Gussekloo, S.W.S, Wilga, C.D., Brainerd, E.B., and Camp, A.L. (2019) Food capture, transport and swallowing in white-spotted bamboo sharks. Journal of Experimental Biology (accepted).
+
 **Weller, H.I.**, and Westneat, M.W. (2019) Quantitative color profiling of digitalimages with earth mover’s distance using the R package colordistance. PeerJ. [10.7717/peerj.6398](10.7717/peerj.6398)
 
 **Weller, H.I.** (2019) colordistance: Distance Metrics for Image Color Similarity (ver. 1.1.0). CRAN repository. [https://CRAN.R-project.org/package=colordistance](https://CRAN.R-project.org/package=colordistance)
@@ -39,8 +41,6 @@ Publications in preparation
 Cohen, K.E., **Weller, H.I.**, and Summer, A.P. (2019) Functional homodonty: a statistical measure of tooth stress as it relates to shape. Journal of Anatomy (in prep).
 
 Hooper, S., **Weller, H.I.**, and Amelon, S. (2019) Creation and validation of the R-package countcolors for repeatable, objective quantification of the fluorescence emitted by *Pseudogymnoascus destructans* on the wing membrane of hibernating bats. Journal of Wildlife Diseases (accepted).
-
-van Meer, N.M., **Weller, H.I.**, Manafzadeh, A.R., Kaczmarek, E.B., Scott, B., Gussekloo, S.W.S, Wilga, C.D., Brainerd, E.B., and Camp, A.L. (2018) Food capture, transport and swallowing in white-spotted bamboo sharks. Journal of Experimental Biology (in prep).
 
 Presentations
 -------------
