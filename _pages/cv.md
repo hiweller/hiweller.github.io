@@ -24,7 +24,7 @@ Education
 
 Peer-reviewed publications
 --------------------------
-van Meer, N.M., **Weller, H.I.**, Manafzadeh, A.R., Kaczmarek, E.B., Scott, B., Gussekloo, S.W.S, Wilga, C.D., Brainerd, E.B., and Camp, A.L. (2019) Food capture, transport and swallowing in white-spotted bamboo sharks. Journal of Experimental Biology (accepted).
+van Meer, N.M., **Weller, H.I.**, Manafzadeh, A.R., Kaczmarek, E.B., Scott, B., Gussekloo, S.W.S, Wilga, C.D., Brainerd, E.B., and Camp, A.L. (2018) Food capture, transport and swallowing in white-spotted bamboo sharks. Journal of Experimental Biology (accepted).
 
 **Weller, H.I.**, and Westneat, M.W. (2019) Quantitative color profiling of digitalimages with earth mover’s distance using the R package colordistance. PeerJ. [10.7717/peerj.6398](10.7717/peerj.6398)
 
@@ -36,6 +36,8 @@ van Meer, N.M., **Weller, H.I.**, Manafzadeh, A.R., Kaczmarek, E.B., Scott, B., 
 
 Publications in preparation
 ---------------------------
+Capano, J. G., Cieri, R. L., **Weller, H.I.**, and Brainerd, E. L. (2019) Ribs All the Way Down: 3D-Rib Kinematics during Lung Ventilation in Boa constrictor (Reptilia: Serpentes), Comparison with Three Non-Serpentine Squamates, and Implications for Evolutionary Convergence (in prep).
+
 **Weller, H.I.**, Olsen, A., Camp, A.L., Hernandez, L.P., Manafzadeh, A.R., and Brainerd, E.L. (2019) An XROMM study of intra-oral transport and swallowing in catfish. Integrative Organismal Biology (in prep).
 
 Cohen, K.E., **Weller, H.I.**, and Summer, A.P. (2019) Functional homodonty: a statistical measure of tooth stress as it relates to shape. Journal of Anatomy (in prep).
@@ -44,6 +46,8 @@ Hooper, S., **Weller, H.I.**, and Amelon, S. (2019) Creation and validation of t
 
 Presentations
 -------------
+**Weller, H.I.**, Olsen, A., Camp, A.L., Hernandez, L.P., Manafzadeh, A.R., and Brainerd, E.L.(Jan. 2019) Talk: 3D-Intra-oral Prey Trajectories Indicate Distinct Phases in how Channel Catfish (Ictalurus punctatus, Siluriformes: Ictaluridae) Swallow Food. *International Congress of Vertebrate Morphology, Prague, CZ.*
+
 **Weller, H.I.**, Cohen, K.E., Gibb, A., and Brainerd, E.L. (Jan. 2019) Poster: Using tethers to
 measure food transport in a flatfish. *Society for Integrative and Comparative Biology, Tampa, FL.*
 
@@ -91,7 +95,6 @@ Research experience
 :   **Graduate student, Brainerd Lab**; adviser: Elizabeth Brainerd  
   *Brown University, Dept. of Ecology & Evolutionary Biology*  
   Morphology and biomechanics of mouthbrooding fishes; XROMM fish feeding and transport.
-
 
 Sept. 2013—July 2017
 :   **Research assistant**; adviser: Mark Westneat  
