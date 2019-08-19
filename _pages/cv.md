@@ -16,7 +16,7 @@ Education
 
     *Thesis: Functional morphology of mouthbrooding in fishes*
 
-2007—2010
+2012—2016
 :   **Honors BSc, Biology**  
   University of Chicago (Chicago, IL)
 
