@@ -1,6 +1,4 @@
 
-----
-
 > Research interests: relationships between form,
 > function, and behavior; fish biodiversity;
 > evolutionary transitions; image processing.
@@ -24,6 +22,10 @@ Education
 
 Peer-reviewed publications
 --------------------------
+Cohen, K.E., **Weller, H.I.**, and Summer, A.P. (2019) Functional homodonty: a statistical measure of tooth stress as it relates to shape. Journal of Anatomy (in review).
+
+Hooper, S., **Weller, H.I.**, and Amelon, S. (2019) Creation and validation of the R-package countcolors for repeatable, objective quantification of the fluorescence emitted by *Pseudogymnoascus destructans* on the wing membrane of hibernating bats. Journal of Wildlife Diseases (accepted).
+
 van Meer, N.M., **Weller, H.I.**, Manafzadeh, A.R., Kaczmarek, E.B., Scott, B., Gussekloo, S.W.S, Wilga, C.D., Brainerd, E.B., and Camp, A.L. (2018) Food capture, transport and swallowing in white-spotted bamboo sharks. Journal of Experimental Biology (accepted).
 
 **Weller, H.I.**, and Westneat, M.W. (2019) Quantitative color profiling of digitalimages with earth mover’s distance using the R package colordistance. PeerJ. [10.7717/peerj.6398](10.7717/peerj.6398)
@@ -39,10 +41,6 @@ Publications in preparation
 Capano, J. G., Cieri, R. L., **Weller, H.I.**, and Brainerd, E. L. (2019) Ribs All the Way Down: 3D-Rib Kinematics during Lung Ventilation in Boa constrictor (Reptilia: Serpentes), Comparison with Three Non-Serpentine Squamates, and Implications for Evolutionary Convergence (in prep).
 
 **Weller, H.I.**, Olsen, A., Camp, A.L., Hernandez, L.P., Manafzadeh, A.R., and Brainerd, E.L. (2019) An XROMM study of intra-oral transport and swallowing in catfish. Integrative Organismal Biology (in prep).
-
-Cohen, K.E., **Weller, H.I.**, and Summer, A.P. (2019) Functional homodonty: a statistical measure of tooth stress as it relates to shape. Journal of Anatomy (in prep).
-
-Hooper, S., **Weller, H.I.**, and Amelon, S. (2019) Creation and validation of the R-package countcolors for repeatable, objective quantification of the fluorescence emitted by *Pseudogymnoascus destructans* on the wing membrane of hibernating bats. Journal of Wildlife Diseases (accepted).
 
 Presentations
 -------------
@@ -116,6 +114,12 @@ June 2014—Sept. 2014
 
 Teaching and outreach
 ---------------------
+Aug. 2019—Present
+:   **Teaching assistant**  
+  *Brown University, Alpert Medical School*
+  (Providence, RI)  
+  *Human Anatomy* (lecture and lab)
+
 Sept. 2018—Present
 :   **Marine Science Club**  
   *Paul Cuffee High School* (Providence, RI)  
@@ -152,9 +156,6 @@ Software
 
 Languages
 :   English (native), French (intermediate)
-
-References
-----------
 
 ----
 
