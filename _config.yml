@@ -1,6 +1,6 @@
 # Site Settings
 locale                   : "en-US"
-title                    : "First Pass"
+title                    : "Symbiopholus"
 title_separator          : "|"
 name                     : &name "Hannah Weller"
 description              : &description "Graduate student at Brown University, studying whether & how behavior ⟷ anatomy."
