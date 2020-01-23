@@ -1,6 +1,6 @@
 # Site Settings
 locale                   : "en-US"
-title                    : "Useful Errors"
+title                    : "First Pass"
 title_separator          : "|"
 name                     : &name "Hannah Weller"
 description              : &description "Graduate student at Brown University, studying whether & how behavior ⟷ anatomy."

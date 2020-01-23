@@ -1,33 +1,36 @@
 ---
 
-> Research interests: relationships between form,
-> function, and behavior; fish biodiversity;
-> evolutionary transitions; image processing.
+> **Research interests**: relationships between appearance,
+> form, function, and behavior; comparative life history
+> analysis; evolutionary paths of least resistance.
 
 ----
 
 Education
 ---------
 
-2017—Present
-:   **Graduate student, Ecology and Evolutionary Biology**  
-  Brown University (Providence, RI)
+2019—Present
+:   **PhD candidate, Ecology and Evolutionary Biology**  
+  Brown University (Providence, RI)    
+    *Thesis: How much functional morphology matter to the evolution of mouthbrooding?*
 
-    *Thesis: Functional morphology of mouthbrooding in fishes*
+2017–2019
+:   **Transitional M.Sc., Ecology and Evolutionary Biology**
+  Brown University (Providence, RI)    
+    *Thesis: How do feeding adaptations influence the convergent evolution of mouthbrooding?*
 
 2012—2016
-:   **Honors BSc, Biology**  
-  University of Chicago (Chicago, IL)
-
-    *Honors thesis: Winnowing in the geophagine cichlid Satanoperca daemon*
+:   **Honors B.Sc., Biology**  
+  University of Chicago (Chicago, IL)    
+    *Thesis: Winnowing in the Geophagine cichlid Satanoperca daemon*
 
 Peer-reviewed publications
 --------------------------
-Cohen, K.E., **Weller, H.I.**, and Summer, A.P. (2019) Functional homodonty: a statistical measure of tooth stress as it relates to shape. Journal of Anatomy (in review).
+Cohen, K.E., **Weller, H.I.**, and Summer, A.P. (2020) Functional homodonty: a statistical measure of tooth stress as it relates to shape. Journal of Anatomy (accepted).
 
-Hooper, S., **Weller, H.I.**, and Amelon, S. (2019) Creation and validation of the R-package countcolors for repeatable, objective quantification of the fluorescence emitted by *Pseudogymnoascus destructans* on the wing membrane of hibernating bats. Journal of Wildlife Diseases (accepted).
+**Weller, H.I.**, Hooper, S., and Amelon, S. (2020) Creation and validation of the R-package countcolors for repeatable, objective quantification of the fluorescence emitted by *Pseudogymnoascus destructans* on the wing membrane of hibernating bats. Journal of Wildlife Diseases (accepted).
 
-van Meer, N.M., **Weller, H.I.**, Manafzadeh, A.R., Kaczmarek, E.B., Scott, B., Gussekloo, S.W.S, Wilga, C.D., Brainerd, E.B., and Camp, A.L. (2018) Food capture, transport and swallowing in white-spotted bamboo sharks. Journal of Experimental Biology (accepted).
+van Meer, N.M., **Weller, H.I.**, Manafzadeh, A.R., Kaczmarek, E.B., Scott, B., Gussekloo, S.W.S, Wilga, C.D., Brainerd, E.B., and Camp, A.L. (2019) Intra-oropharyngeal food transport and swallowing in white-spotted bamboo sharks. Journal of Experimental Biology. [10.1242/jeb.201426](10.1242/jeb.201426)
 
 **Weller, H.I.**, and Westneat, M.W. (2019) Quantitative color profiling of digitalimages with earth mover’s distance using the R package colordistance. PeerJ. [10.7717/peerj.6398](10.7717/peerj.6398)
 
@@ -39,13 +42,17 @@ van Meer, N.M., **Weller, H.I.**, Manafzadeh, A.R., Kaczmarek, E.B., Scott, B., 
 
 Publications in preparation
 ---------------------------
-Capano, J. G., Cieri, R. L., **Weller, H.I.**, and Brainerd, E. L. (2019) Ribs All the Way Down: 3D-Rib Kinematics during Lung Ventilation in Boa constrictor (Reptilia: Serpentes), Comparison with Three Non-Serpentine Squamates, and Implications for Evolutionary Convergence (in prep).
+**Weller, H.I.**, Olsen, A., Camp, A.L., Hernandez, L.P., Manafzadeh, A.R., and Brainerd, E.L. (2020) An XROMM study of intra-oral transport and swallowing in catfish. Integrative Organismal Biology (in prep).
 
-**Weller, H.I.**, Olsen, A., Camp, A.L., Hernandez, L.P., Manafzadeh, A.R., and Brainerd, E.L. (2019) An XROMM study of intra-oral transport and swallowing in catfish. Integrative Organismal Biology (in prep).
+Capano, J. G., Cieri, R. L., **Weller, H.I.**, and Brainerd, E. L. (2020) Ribs All the Way Down: 3D-Rib Kinematics during Lung Ventilation in Boa constrictor (Reptilia: Serpentes), Comparison with Three Non-Serpentine Squamates, and Implications for Evolutionary Convergence (in prep).
 
 Presentations
 -------------
-**Weller, H.I.**, Olsen, A., Camp, A.L., Hernandez, L.P., Manafzadeh, A.R., and Brainerd, E.L.(Jan. 2019) Talk: 3D-Intra-oral Prey Trajectories Indicate Distinct Phases in how Channel Catfish (Ictalurus punctatus, Siluriformes: Ictaluridae) Swallow Food. *International Congress of Vertebrate Morphology, Prague, CZ.*
+**Weller, H.I.**, López-Fernández, H., McMahan, C.D., and Brainerd, E.L. (Jan. 2020) Talk: Does mouthbrooding constrain or complement feeding morphology? *Society for Integrative and Comparative Biology, Austin, TX.*
+
+**Weller, H.I.**, López-Fernández, H., McMahan, C.D., and Brainerd, E.L. (Oct. 2019) Talk: Does mouthbrooding constrain or complement feeding morphology? *Regional Division of Vertebrate Morphology (Northeast), Newton, MA.*
+
+**Weller, H.I.**, Olsen, A., Camp, A.L., Hernandez, L.P., Manafzadeh, A.R., and Brainerd, E.L. (Jan. 2019) Talk: 3D-Intra-oral Prey Trajectories Indicate Distinct Phases in how Channel Catfish (Ictalurus punctatus, Siluriformes: Ictaluridae) Swallow Food. *International Congress of Vertebrate Morphology, Prague, CZ.*
 
 **Weller, H.I.**, Cohen, K.E., Gibb, A., and Brainerd, E.L. (Jan. 2019) Poster: Using tethers to
 measure food transport in a flatfish. *Society for Integrative and Comparative Biology, Tampa, FL.*
@@ -91,35 +98,45 @@ June 2014
 Research experience
 -------------------
 2017—Present
-:   **Graduate student, Brainerd Lab**; adviser: Elizabeth Brainerd  
+:   **Graduate student, Brainerd Lab**; advisor: Elizabeth Brainerd  
   *Brown University, Dept. of Ecology & Evolutionary Biology*  
-  Morphology and biomechanics of mouthbrooding fishes; XROMM fish feeding and transport.
+  Comparative morphology, kinematics, and biomechanics of mouthbrooding fishes; XROMM fish feeding and transport.
 
 Sept. 2013—July 2017
-:   **Research assistant**; adviser: Mark Westneat  
+:   **Research assistant**; advisor: Mark Westneat  
   *University of Chicago, Dept. of Organismal Biology & Anatomy*  
   Data mining pipelines; image processing and simple machine learning; quantitative color analysis; comparative 2D morphometrics; high-speed video kinematics.
 
-
 June 2015—Sept. 2015
-:   **Jeff Metcalf Summer Research Fellow**; adviser: Roger Hanlon  
+:   **Jeff Metcalf Summer Research Fellow**; advisor: Roger Hanlon  
   *Brown University, Dept. of Ecology & Evolutionary Biology*  
   Hyperspectral imaging; image analysis pipelines; camouflage analyses.
 
 
 June 2014—Sept. 2014
-:   **Summer Research Fellow, Westneat Lab**; adviser: Mark Westneat  
+:   **Summer Research Fellow, Westneat Lab**; advisor: Mark Westneat  
   *University of Chicago, Dept. of Organismal Biology & Anatomy*  
   Ontogenetic scaling; biomechanical model; geometric morphometrics.
 
 
 Teaching and outreach
 ---------------------
+Sept. 2019–Present
+:   **R User Group**
+  *Brown University, Dept. of Ecology and Evolutionary Biology* (Providence, RI)
+  Organizing and running monthly R workshops for graduate and undergraduate students, focusing on techniques for biological analysis (e.g., data organization, statistics, and visualization).
+
 Aug. 2019—Present
 :   **Teaching assistant**  
   *Brown University, Alpert Medical School*
   (Providence, RI)  
   *Human Anatomy* (lecture and lab)
+  Guiding medical students through cadaver-based human anatomy labs.
+
+Dec. 2019
+:   **Workshop: R for biologists**
+  *Louisiana State University, Dept. of Entomology* (Baton Rouge, LA)
+  Organized and ran day-long workshop for data analysis and visualization in R.
 
 Sept. 2018—Present
 :   **Marine Science Club**  
