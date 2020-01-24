@@ -14,14 +14,14 @@ Education
     *Thesis: How much functional morphology matter to the evolution of mouthbrooding?*
 
 2017–2019
-:   **Transitional M.Sc., Ecology and Evolutionary Biology**
+:   **Transitional M.Sc., Ecology and Evolutionary Biology**  
   Brown University (Providence, RI)    
     *Thesis: How do feeding adaptations influence the convergent evolution of mouthbrooding?*
 
 2012—2016
 :   **Honors B.Sc., Biology**  
   University of Chicago (Chicago, IL)    
-    *Thesis: Winnowing in the Geophagine cichlid Satanoperca daemon*
+    *Thesis: Winnowing in the eartheater cichlids*
 
 Peer-reviewed publications
 --------------------------
@@ -31,7 +31,7 @@ Cohen, K.E., **Weller, H.I.**, and Summer, A.P. (2020) Functional homodonty: a s
 
 van Meer, N.M., **Weller, H.I.**, Manafzadeh, A.R., Kaczmarek, E.B., Scott, B., Gussekloo, S.W.S, Wilga, C.D., Brainerd, E.B., and Camp, A.L. (2019) Intra-oropharyngeal food transport and swallowing in white-spotted bamboo sharks. Journal of Experimental Biology. [10.1242/jeb.201426](10.1242/jeb.201426)
 
-**Weller, H.I.**, and Westneat, M.W. (2019) Quantitative color profiling of digitalimages with earth mover’s distance using the R package colordistance. PeerJ. [10.7717/peerj.6398](10.7717/peerj.6398)
+**Weller, H.I.**, and Westneat, M.W. (2019) Quantitative color profiling of digital images with earth mover’s distance using the R package colordistance. PeerJ. [10.7717/peerj.6398](10.7717/peerj.6398)
 
 **Weller, H.I.** (2019) colordistance: Distance Metrics for Image Color Similarity (ver. 1.1.0). CRAN repository. [https://CRAN.R-project.org/package=colordistance](https://CRAN.R-project.org/package=colordistance)
 
@@ -121,46 +121,38 @@ June 2014—Sept. 2014
 Teaching and outreach
 ---------------------
 Sept. 2019–Present
-:   **R User Group**
-  *Brown University, Dept. of Ecology and Evolutionary Biology* (Providence, RI)
-  Organizing and running monthly R workshops for graduate and undergraduate students, focusing on techniques for biological analysis (e.g., data organization, statistics, and visualization).
+:   **R User Group**, *Brown University, Dept. of Ecology and Evolutionary Biology* (Providence, RI)  
+  * Organizing and running monthly R workshops for graduate and undergraduate students, focusing on techniques for biological analysis (e.g., data organization, statistics, and visualization).
 
 Aug. 2019—Present
-:   **Teaching assistant**  
-  *Brown University, Alpert Medical School*
-  (Providence, RI)  
-  *Human Anatomy* (lecture and lab)
-  Guiding medical students through cadaver-based human anatomy labs.
+:   **Teaching assistant**, *Brown University, Alpert Medical School* (Providence, RI)  
+  Human Anatomy (lecture and lab)  
+  * Guiding medical students through cadaver-based human anatomy labs.
 
 Dec. 2019
-:   **Workshop: R for biologists**
-  *Louisiana State University, Dept. of Entomology* (Baton Rouge, LA)
-  Organized and ran day-long workshop for data analysis and visualization in R.
+:   **Workshop: R for Biologists**, *Louisiana State University, Dept. of Entomology* (Baton Rouge, LA)  
+  * Organized and ran day-long workshop for data analysis and visualization in R.
 
 Sept. 2018—Present
-:   **Marine Science Club**  
-  *Paul Cuffee High School* (Providence, RI)  
+:   **Marine Science Club**, *Paul Cuffee High School* (Providence, RI)  
   Collaborating with high school teachers for weekly science activities with high school students.
 
 Sept. 2017—Dec. 2017
-:   **Teaching assistant**  
-  *Brown University, Dept. of Ecology & Evolutionary Biology* (Providence, RI)  
-  *Diversity of Life* (lecture)
+:   **Teaching assistant**, *Brown University, Dept. of Ecology & Evolutionary Biology* (Providence, RI)  
+  Diversity of Life (lecture)
 
 Jan. 2015—April 2017
-:   **Teaching assistant**  
-  *University of Chicago, Dept. of Biological Sciences* (Chicago, IL)  
-  Presenting and supervising lab experiments; writing and grading assignments; lecturing; leading paper discussions and review sessions; guiding dissection-based anatomy labs.  
+:   **Teaching assistant**, *University of Chicago, Dept. of Biological Sciences* (Chicago, IL)  
+  * Presenting and supervising lab experiments; writing and grading assignments; lecturing; leading paper discussions and review sessions; guiding dissection-based anatomy labs.  
 
-    *Genetic and Developmental Biology* (lab & lecture)  
-    *Multiscale Modeling of Biological Systems* (lecture)  
-    *Molecular Biology of the Cell* (lab)  
-    *Comparative Vertebrate Anatomy* (lab & lecture)
+    Genetic and Developmental Biology (lab & lecture)  
+    Multiscale Modeling of Biological Systems (lecture)  
+    Molecular Biology of the Cell (lab)  
+    Comparative Vertebrate Anatomy (lab & lecture)
 
   June 2013—Sept. 2013
-  :   **Animal care intern**  
-    *New England Aquarium* (Boston, MA)  
-    Daily animal care and maintenance; visitor outreach; collection trips.
+  :   **Animal care intern**, *New England Aquarium* (Boston, MA)  
+    * Daily animal care and maintenance; visitor outreach; collection trips.
 
 
 Skills
