@@ -11,7 +11,7 @@ Education
 2019—Present
 :   **PhD candidate, Ecology and Evolutionary Biology**  
   Brown University (Providence, RI)    
-    *Thesis: How much functional morphology matter to the evolution of mouthbrooding?*
+    *Thesis: How much does functional morphology matter to the evolution of mouthbrooding?*
 
 2017–2019
 :   **Transitional M.Sc., Ecology and Evolutionary Biology**  
@@ -25,43 +25,43 @@ Education
 
 Peer-reviewed publications
 --------------------------
-Cohen, K.E., **Weller, H.I.**, and Summer, A.P. (2020) Functional homodonty: a statistical measure of tooth stress as it relates to shape. Journal of Anatomy (accepted).
+**Weller, H.I.**, Olsen, A., Camp, A.L., Hernandez, L.P., Manafzadeh, A.R., and Brainerd, E.L. (2020). An XROMM study of intra-oral transport and swallowing in catfish. Integrative Organismal Biology. https://doi.org/10.1093/iob/obaa018. 
 
-**Weller, H.I.**, Hooper, S., and Amelon, S. (2020) Creation and validation of the R-package countcolors for repeatable, objective quantification of the fluorescence emitted by *Pseudogymnoascus destructans* on the wing membrane of hibernating bats. Journal of Wildlife Diseases (accepted).
+Cohen, K.E., **Weller, H.I.**, and Summer, A.P. (2020). Functional homodonty: a statistical measure of tooth stress as it relates to shape. Journal of Anatomy (accepted).
 
-van Meer, N.M., **Weller, H.I.**, Manafzadeh, A.R., Kaczmarek, E.B., Scott, B., Gussekloo, S.W.S, Wilga, C.D., Brainerd, E.B., and Camp, A.L. (2019) Intra-oropharyngeal food transport and swallowing in white-spotted bamboo sharks. Journal of Experimental Biology. [10.1242/jeb.201426](10.1242/jeb.201426)
+**Weller, H.I.**, Hooper, S., and Amelon, S. (2020). Creation and validation of the R-package countcolors for repeatable, objective quantification of the fluorescence emitted by *Pseudogymnoascus destructans* on the wing membrane of hibernating bats. Journal of Wildlife Diseases (accepted).
 
-**Weller, H.I.**, and Westneat, M.W. (2019) Quantitative color profiling of digital images with earth mover’s distance using the R package colordistance. PeerJ. [10.7717/peerj.6398](10.7717/peerj.6398)
+van Meer, N.M., **Weller, H.I.**, Manafzadeh, A.R., Kaczmarek, E.B., Scott, B., Gussekloo, S.W.S, Wilga, C.D., Brainerd, E.B., and Camp, A.L. (2019). Intra-oropharyngeal food transport and swallowing in white-spotted bamboo sharks. Journal of Experimental Biology. [10.1242/jeb.201426](10.1242/jeb.201426)
 
-**Weller, H.I.** (2019) colordistance: Distance Metrics for Image Color Similarity (ver. 1.1.0). CRAN repository. [https://CRAN.R-project.org/package=colordistance](https://CRAN.R-project.org/package=colordistance)
+**Weller, H.I.**, and Westneat, M.W. (2019). Quantitative color profiling of digital images with earth mover’s distance using the R package colordistance. PeerJ. [10.7717/peerj.6398](10.7717/peerj.6398)
 
-**Weller, H.I.** (2018) countcolors: Locates and Counts Pixels Within Color Range(s) in Images (ver. 0.9.1). CRAN Repository. [https://CRAN.R-project.org/package=countcolors](https://CRAN.R-project.org/package=countcolors)
+**Weller, H.I.** (2019). colordistance: Distance Metrics for Image Color Similarity (ver. 1.1.0). CRAN repository. [https://CRAN.R-project.org/package=colordistance](https://CRAN.R-project.org/package=colordistance)
 
-**Weller, H.I.**, McMahan, C.D., and Westneat, M.W. (2016) Dirt-sifting Devilfish: Winnowing in the geophagine cichlid *Satanoperca daemon* and evolutionary implications. Zoomorphology. [10.1007/s00435-016-0335-6](10.1007/s00435-016-0335-6)
+**Weller, H.I.** (2018). countcolors: Locates and Counts Pixels Within Color Range(s) in Images (ver. 0.9.1). CRAN Repository. [https://CRAN.R-project.org/package=countcolors](https://CRAN.R-project.org/package=countcolors)
+
+**Weller, H.I.**, McMahan, C.D., and Westneat, M.W. (2016). Dirt-sifting Devilfish: Winnowing in the geophagine cichlid *Satanoperca daemon* and evolutionary implications. Zoomorphology. [10.1007/s00435-016-0335-6](10.1007/s00435-016-0335-6)
 
 Publications in preparation
 ---------------------------
-**Weller, H.I.**, Olsen, A., Camp, A.L., Hernandez, L.P., Manafzadeh, A.R., and Brainerd, E.L. (2020) An XROMM study of intra-oral transport and swallowing in catfish. Integrative Organismal Biology (in prep).
-
-Capano, J. G., Cieri, R. L., **Weller, H.I.**, and Brainerd, E. L. (2020) Ribs All the Way Down: 3D-Rib Kinematics during Lung Ventilation in Boa constrictor (Reptilia: Serpentes), Comparison with Three Non-Serpentine Squamates, and Implications for Evolutionary Convergence (in prep).
+Capano, J. G., Cieri, R. L., **Weller, H.I.**, and Brainerd, E. L. (2020). Ribs All the Way Down: 3D-Rib Kinematics during Lung Ventilation in Boa constrictor (Reptilia: Serpentes), Comparison with Three Non-Serpentine Squamates, and Implications for Evolutionary Convergence (in prep).
 
 Presentations
 -------------
-**Weller, H.I.**, López-Fernández, H., McMahan, C.D., and Brainerd, E.L. (Jan. 2020) Talk: Does mouthbrooding constrain or complement feeding morphology? *Society for Integrative and Comparative Biology, Austin, TX.*
+**Weller, H.I.**, López-Fernández, H., McMahan, C.D., and Brainerd, E.L. (Jan. 2020). Talk: Does mouthbrooding constrain or complement feeding morphology? *Society for Integrative and Comparative Biology, Austin, TX.*
 
-**Weller, H.I.**, López-Fernández, H., McMahan, C.D., and Brainerd, E.L. (Oct. 2019) Talk: Does mouthbrooding constrain or complement feeding morphology? *Regional Division of Vertebrate Morphology (Northeast), Newton, MA.*
+**Weller, H.I.**, López-Fernández, H., McMahan, C.D., and Brainerd, E.L. (Oct. 2019). Talk: Does mouthbrooding constrain or complement feeding morphology? *Regional Division of Vertebrate Morphology (Northeast), Newton, MA.*
 
-**Weller, H.I.**, Olsen, A., Camp, A.L., Hernandez, L.P., Manafzadeh, A.R., and Brainerd, E.L. (Jan. 2019) Talk: 3D-Intra-oral Prey Trajectories Indicate Distinct Phases in how Channel Catfish (Ictalurus punctatus, Siluriformes: Ictaluridae) Swallow Food. *International Congress of Vertebrate Morphology, Prague, CZ.*
+**Weller, H.I.**, Olsen, A., Camp, A.L., Hernandez, L.P., Manafzadeh, A.R., and Brainerd, E.L. (Jan. 2019). Talk: 3D-Intra-oral Prey Trajectories Indicate Distinct Phases in how Channel Catfish (Ictalurus punctatus, Siluriformes: Ictaluridae) Swallow Food. *International Congress of Vertebrate Morphology, Prague, CZ.*
 
-**Weller, H.I.**, Cohen, K.E., Gibb, A., and Brainerd, E.L. (Jan. 2019) Poster: Using tethers to
+**Weller, H.I.**, Cohen, K.E., Gibb, A., and Brainerd, E.L. (Jan. 2019). Poster: Using tethers to
 measure food transport in a flatfish. *Society for Integrative and Comparative Biology, Tampa, FL.*
 
-**Weller, H.I.**, Olsen, A., Camp, A.L., Hernandez, L.P., Manafzadeh, A.R., and Brainerd, E.L.(Jan. 2019) Talk: An XROMM study of intra-oral transport and swallowing in catfish. *Society for Integrative and Comparative Biology, Tampa, FL.*
+**Weller, H.I.**, Olsen, A., Camp, A.L., Hernandez, L.P., Manafzadeh, A.R., and Brainerd, E.L.(Jan. 2019). Talk: An XROMM study of intra-oral transport and swallowing in catfish. *Society for Integrative and Comparative Biology, Tampa, FL.*
 
-**Weller, H.I.** and Brainerd, E.L. (Oct. 2017) Talk: How do fish swallow food? *Regional Division
+**Weller, H.I.** and Brainerd, E.L. (Oct. 2017). Talk: How do fish swallow food? *Regional Division
 of Vertebrate Morphology (Northeast), Lowell, MA.*
 
-**Weller, H.I.**, McMahan, C.D., and Westneat, M.W. (July 2016) Poster: Dirt-sifting devilfish:
+**Weller, H.I.**, McMahan, C.D., and Westneat, M.W. (July 2016). Poster: Dirt-sifting devilfish:
 winnowing in eartheater cichlids. *American Society of Ichthyologists and Herpetologists, New
 Orleans, LA.*
 
