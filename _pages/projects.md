@@ -1,5 +1,5 @@
 ---
-title: "I exist!"
+title: "I exist! Here's another edit!"
 layout: archive
 permalink: /projects/
 collection: projects
