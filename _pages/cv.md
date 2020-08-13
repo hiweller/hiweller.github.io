@@ -14,17 +14,17 @@ Education
 2019 – Present
 :   **PhD candidate, Ecology and Evolutionary Biology**  
   Brown University (Providence, RI)    
-    ^*Thesis: How much does functional morphology matter to the evolution of mouthbrooding?*^
+    *Thesis: How much does functional morphology matter to the evolution of mouthbrooding?*
 
 2017 – 2019
 :   **Transitional M.Sc., Ecology and Evolutionary Biology**  
   Brown University (Providence, RI)    
-   ^*Thesis: How do feeding adaptations influence the convergent evolution of mouthbrooding?*^
+   *Thesis: How do feeding adaptations influence the convergent evolution of mouthbrooding?*
 
 2012 – 2016
 :   **Honors B.Sc., Biology**  
   University of Chicago (Chicago, IL)    
-   ^*Thesis: Winnowing in the eartheater cichlids*^  
+   *Thesis: Winnowing in the eartheater cichlids*  
 
 Peer-reviewed publications
 --------------------------
@@ -150,22 +150,22 @@ Research experience
 2017 – Present
 :   **Graduate student, Brainerd Lab**; advisor: Elizabeth Brainerd  
   *Brown University, Dept. of Ecology & Evolutionary Biology*  
-  ^*Comparative morphology, kinematics, and biomechanics of mouthbrooding fishes; XROMM fish feeding and transport.*^
+  Comparative morphology, kinematics, and biomechanics of mouthbrooding fishes; XROMM fish feeding and transport.
 
 September 2013 – July 2017
 :   **Research assistant**; advisor: Mark Westneat  
   *University of Chicago, Dept. of Organismal Biology & Anatomy*  
-  ^*Quantitative color analysis; geometric morphometrics; high-speed video kinematics.*^
+  Quantitative color analysis; geometric morphometrics; high-speed video kinematics.
 
 June 2015 – September 2015
 :   **Jeff Metcalf Summer Research Fellow**; advisor: Roger Hanlon  
   *Brown University, Dept. of Ecology & Evolutionary Biology*  
-  ^*Hyperspectral imaging; image analysis pipelines; camouflage analyses.*^
+  Hyperspectral imaging; image analysis pipelines; camouflage analyses.
 
 June 2014 – September 2014
 :   **Summer Research Fellow, Westneat Lab**; advisor: Mark Westneat  
   *University of Chicago, Dept. of Organismal Biology & Anatomy*  
-  ^*Ontogenetic scaling; biomechanical modeling; geometric morphometrics.*^
+  Ontogenetic scaling; biomechanical modeling; geometric morphometrics.
 
 
 Teaching and outreach
