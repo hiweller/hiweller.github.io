@@ -1,10 +1,9 @@
 ---
 
-> **Research interests**: biomechanical constraints
-> in life history evolution; development of new 
-> computational methods for analysing organism color
-> and pattern; broadly, paths of least resistance in the 
-> evolution of new traits.
+> **Research interests**: the role of biomechanical
+> constraints in life history evolution; paths of least
+> resistance in the evolution of new traits; methods 
+> development for analysing organism color and pattern.
 
 ----
 
