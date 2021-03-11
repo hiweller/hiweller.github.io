@@ -2,8 +2,8 @@
 
 > **Research interests**: the role of biomechanical
 > constraints in life history evolution; paths of least
-> resistance in the evolution of new traits; methods 
-> development for analysing organism color and pattern.
+> resistance in the evolution of new traits; methods
+> development for analyzing organism color and pattern.
 
 ----
 
@@ -30,34 +30,29 @@ Education
 Peer-reviewed publications
 --------------------------
 
-Cohen, K.E., **Weller, H.I.**, Westneat, M.W., and Summers, A.P (2020). The Evolutionary Continuum of Functional Homodonty to Heterodonty in the Dentition of *Halichoeres* Wrasses. Integrative and Comparative Biology (in revision).
+**Weller, H.I.**, Olsen, A., Camp, A.L., Hernandez, L.P., Manafzadeh, A.R., and Brainerd, E.L. (2020). An XROMM study of intra-oral transport and swallowing in catfish. Integrative Organismal Biology. DOI: https://doi.org/10.1093/iob/obaa018.
 
-**Weller, H.I.**\*, Hooper, S.E.\*, and Amelon, S.K (2020). Countcolors, an R package for quantification of the fluorescence emitted by Pseudogymnoascus destructans lesions on the wing membranes of hibernating bats. Journal of Wildlife Diseases. https://doi.org/10.7589/2019-09-231  
+Cohen, K.E., **Weller, H.I.**, Westneat, M.W., and Summers, A.P (2020). The Evolutionary Continuum of Functional Homodonty to Heterodonty in the Dentition of *Halichoeres* Wrasses. Integrative and Comparative Biology. https://doi.org/10.1093/icb/icaa137.
+
+**Weller, H.I.**\*, Hooper, S.E.\*, and Amelon, S.K* (2020). Countcolors, an R package for quantification of the fluorescence emitted by Pseudogymnoascus destructans lesions on the wing membranes of hibernating bats. Journal of Wildlife Diseases. https://doi.org/10.7589/2019-09-231  
 <sup>\*These authors contributed equally to this work.</sup>
 
-Cohen, K.E., **Weller, H.I.**, and Summers, A.P. (2020). Not your father’s homodonty—stress, tooth shape, and the functional homodont. Journal of Anatomy. https://doi.org/10.1111/joa.13248
+Cohen, K.E., **Weller, H.I.**, and Summers, A.P. (2020). Not your father’s homodonty—stress, tooth shape, and the functional homodont. Journal of Anatomy. DOI: https://doi.org/10.1111/joa.13248
 
-**Weller, H.I.**, Olsen, A., Camp, A.L., Hernandez, L.P., Manafzadeh, A.R., and Brainerd, E.L. (2020). An XROMM study of intra-oral transport and swallowing in catfish. Integrative Organismal Biology. https://doi.org/10.1093/iob/obaa018. 
+van Meer, N.M., **Weller, H.I.**, Manafzadeh, A.R., Kaczmarek, E.B., Scott, B., Gussekloo, S.W.S, Wilga, C.D., Brainerd, E.B., and Camp, A.L. (2019). Intra-oropharyngeal food transport and swallowing in white-spotted bamboo sharks. Journal of Experimental Biology. DOI: [10.1242/jeb.201426](10.1242/jeb.201426)
 
-van Meer, N.M., **Weller, H.I.**, Manafzadeh, A.R., Kaczmarek, E.B., Scott, B., Gussekloo, S.W.S, Wilga, C.D., Brainerd, E.B., and Camp, A.L. (2019). Intra-oropharyngeal food transport and swallowing in white-spotted bamboo sharks. Journal of Experimental Biology. [10.1242/jeb.201426](10.1242/jeb.201426)
+**Weller, H.I.**, and Westneat, M.W. (2019). Quantitative color profiling of digital images with earth mover’s distance using the R package colordistance. PeerJ. DOI: [10.7717/peerj.6398](10.7717/peerj.6398)
 
-**Weller, H.I.**, and Westneat, M.W. (2019). Quantitative color profiling of digital images with earth mover’s distance using the R package colordistance. PeerJ. [10.7717/peerj.6398](10.7717/peerj.6398)
-
-**Weller, H.I.**, McMahan, C.D., and Westneat, M.W. (2016). Dirt-sifting Devilfish: Winnowing in the geophagine cichlid *Satanoperca daemon* and evolutionary implications. Zoomorphology. [10.1007/s00435-016-0335-6](10.1007/s00435-016-0335-6)
-
-
-
-Publications in preparation
----------------------------
-
-Capano, J. G., Cieri, R. L., **Weller, H.I.**, and Brainerd, E. L. (2020). Ribs All the Way Down: 3D-Rib Kinematics during Lung Ventilation in Boa constrictor (Reptilia: Serpentes), Comparison with Three Non-Serpentine Squamates, and Implications for Evolutionary Convergence (in prep).
+**Weller, H.I.**, McMahan, C.D., and Westneat, M.W. (2016). Dirt-sifting Devilfish: Winnowing in the geophagine cichlid *Satanoperca daemon* and evolutionary implications. Zoomorphology. DOI: [10.1007/s00435-016-0335-6](10.1007/s00435-016-0335-6)
 
 
 
 Software
 ---------------------------
 
-**Weller, H.I.** (2020). recolorize: Simplify and Remap Image Colors for Biological Analysis (ver. 0.9.0). Compiled and installable; CRAN release planned. https://github.com/hiweller/recolorize
+**Weller, H.I.** (2020). recolorize: Simplify and Remap Image Colors for Biological Analysis (ver. 0.9.000). Compiled and installable; CRAN release planned. https://github.com/hiweller/recolorize
+
+O'Sullivan, D., **Weller, H.I.**, and Lord, N.P. Insect Color Database (ICDB). In development. https://insectcolor.com/
 
 **Weller, H.I.** (2019). colordistance: Distance Metrics for Image Color Similarity (ver. 1.1.0). CRAN repository. [https://CRAN.R-project.org/package=colordistance](https://CRAN.R-project.org/package=colordistance)
 
