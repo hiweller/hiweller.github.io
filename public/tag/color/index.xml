@@ -1,0 +1,873 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>color | Hannah Weller</title>
+    <link>/tag/color/</link>
+      <atom:link href="/tag/color/index.xml" rel="self" type="application/rss+xml" />
+    <description>color</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Tue, 13 Apr 2021 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/media/icon_hu894dd0f75b84cd2ded4b9885934a1072_25364_512x512_fill_lanczos_center_2.png</url>
+      <title>color</title>
+      <link>/tag/color/</link>
+    </image>
+    
+    <item>
+      <title>Function gallery for recolorize</title>
+      <link>/post/function-gallery-for-recolorize/</link>
+      <pubDate>Tue, 13 Apr 2021 00:00:00 +0000</pubDate>
+      <guid>/post/function-gallery-for-recolorize/</guid>
+      <description>&lt;p&gt;A quick reference gallery for what the most broadly useful functions do.&lt;/p&gt;
+&lt;h3 id=&#34;loading-and-pre-processing-images&#34;&gt;Loading and pre-processing images&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;readImage&lt;/code&gt;: Reads in a PNG or JPEG image, optionally resizing and/or rotating it.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;img &amp;lt;- system.file(&amp;quot;extdata/corbetti.png&amp;quot;, package = &amp;quot;recolorize&amp;quot;)
+loaded_image &amp;lt;- readImage(img_path = img, resize = NULL, rotate = NULL)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;blurImage&lt;/code&gt;: Applies one of several blurring filters from the &lt;code&gt;imager&lt;/code&gt; package to a loaded image. Helpful for dealing with variation from textures (e.g. scales, reflections, hairs, etc).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;blurred_image &amp;lt;- blurImage(loaded_image, blur_function = &amp;quot;medianblur&amp;quot;, n = 3, threshold = 5)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/function-gallery-for-recolorize/index_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;576&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;h3 id=&#34;initial-segmentation&#34;&gt;Initial segmentation&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;recolorize&lt;/code&gt;: The major function of the package. Segments colors using color binning (&lt;code&gt;method = &amp;quot;hist&amp;quot;&lt;/code&gt;) or k-means clustering (&lt;code&gt;method = &amp;quot;k&amp;quot;&lt;/code&gt;), in several color spaces.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;rc_hist &amp;lt;- recolorize(img, method = &amp;quot;hist&amp;quot;, bins = 2, color_space = &amp;quot;sRGB&amp;quot;)
+#&amp;gt; 
+#&amp;gt; Using 2^3 = 8 total bins
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/function-gallery-for-recolorize/index_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;384&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;
+rc_k &amp;lt;- recolorize(img, method = &amp;quot;k&amp;quot;, n = 8, color_space = &amp;quot;sRGB&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/function-gallery-for-recolorize/index_files/figure-html/unnamed-chunk-4-2.png&#34; width=&#34;384&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;recolorize2&lt;/code&gt;: Runs &lt;code&gt;recolorize&lt;/code&gt; and &lt;code&gt;recluster&lt;/code&gt; (see next section) in sequence. I have found this to be an effective, fast combination for very many kinds of images, so if you&amp;rsquo;re going to pick one function to start with, pick this one!&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;rc &amp;lt;- recolorize2(img, cutoff = 45)
+#&amp;gt; 
+#&amp;gt; Using 2^3 = 8 total bins
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/function-gallery-for-recolorize/index_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;576&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;img src=&#34;/post/function-gallery-for-recolorize/index_files/figure-html/unnamed-chunk-5-2.png&#34; width=&#34;576&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;imposeColors&lt;/code&gt;: Imposes colors from one image onto another image (useful for batch processing).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;colors &amp;lt;- c(&amp;quot;tomato&amp;quot;,
+            &amp;quot;limegreen&amp;quot;,
+            &amp;quot;dodgerblue&amp;quot;,
+            &amp;quot;cornsilk&amp;quot;,
+            &amp;quot;black&amp;quot;)
+colors &amp;lt;- t(col2rgb(colors)) / 255
+imposed &amp;lt;- imposeColors(img, centers = colors)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/function-gallery-for-recolorize/index_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;576&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;h3 id=&#34;refining-initial-results&#34;&gt;Refining initial results&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;recluster&lt;/code&gt;: Combines existing clusters based on either a cutoff for color similarity or a target number of colors.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;recluster_fit &amp;lt;- recluster(rc_hist, similarity_cutoff = 45)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/function-gallery-for-recolorize/index_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;576&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;img src=&#34;/post/function-gallery-for-recolorize/index_files/figure-html/unnamed-chunk-7-2.png&#34; width=&#34;576&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;thresholdRecolor&lt;/code&gt;: Drops the smallest clusters from a &lt;code&gt;recolorize&lt;/code&gt; fit and refits the original image.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;rc_thresh &amp;lt;- thresholdRecolor(rc_hist, pct = 0.01)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/function-gallery-for-recolorize/index_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;576&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;wernerColor&lt;/code&gt;: Remaps a recolorize object to the colors in Werner&amp;rsquo;s Nomenclature of Colors by Patrick Syme (1821), one of the first attempts at an objective color reference in western science, notably used by Charles Darwin. This one is mostly just for fun.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;rc_werner &amp;lt;- wernerColor(recluster_fit)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/function-gallery-for-recolorize/index_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;480&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;h3 id=&#34;minor-edits&#34;&gt;Minor edits&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;absorbLayer&lt;/code&gt;: &amp;ldquo;Absorbs&amp;rdquo; all or part of a layer into the surrounding colors, optionally according to a size or location condition.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;absorb_red &amp;lt;- absorbLayer(recluster_fit,
+                          layer_idx = 3, 
+                          size_condition = function(s) s &amp;lt;= 100,
+                          highlight_color = &amp;quot;cyan&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/function-gallery-for-recolorize/index_files/figure-html/unnamed-chunk-10-1.png&#34; width=&#34;480&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;editLayer&lt;/code&gt;/&lt;code&gt;editLayers&lt;/code&gt;: Applies one of several morphological operations from &lt;code&gt;imager&lt;/code&gt; to a layer (or layers) of a &lt;code&gt;recolorize&lt;/code&gt; object. This can be used to despeckle, fill in holes, or uniformly grow or shrink a color patch.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;rc_edit &amp;lt;- editLayer(absorb_red, 
+                      layer_idx = 3, 
+                      operation = &amp;quot;fill&amp;quot;,
+                      px_size = 2)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/function-gallery-for-recolorize/index_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;576&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;mergeLayers&lt;/code&gt;: Merges specified layers together, with options for setting the new color.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;merged_rc &amp;lt;- mergeLayers(rc_hist, merge_list = list(c(4, 7),
+                                                    c(3, 5), 
+                                                    c(6, 8)))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/function-gallery-for-recolorize/index_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;576&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;h3 id=&#34;visualization&#34;&gt;Visualization&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;plotImageArray&lt;/code&gt;: Plots a 1D or 3D array as an RGB image.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;layout(matrix(1:4, nrow = 1))
+plotImageArray(loaded_image, main = &amp;quot;original&amp;quot;)
+plotImageArray(loaded_image[ , , 1], main = &amp;quot;red&amp;quot;)
+plotImageArray(loaded_image[ , , 2], main = &amp;quot;green&amp;quot;)
+plotImageArray(loaded_image[ , , 3], main = &amp;quot;blue&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/function-gallery-for-recolorize/index_files/figure-html/unnamed-chunk-13-1.png&#34; width=&#34;576&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;imDist&lt;/code&gt; | &lt;code&gt;imHeatmap&lt;/code&gt;: Compares two versions of the same image by calculating the color distance between the colors of each pair of pixels (&lt;code&gt;imDist&lt;/code&gt;), and gives you a few more options for plotting the results (&lt;code&gt;imHeatmap&lt;/code&gt;).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;layout(matrix(1:2, nrow = 1))
+par(mar = rep(0, 4))
+im_dist &amp;lt;- imDist(im1 = raster_to_array(recluster_fit$original_img),
+                  im2 = recoloredImage(recluster_fit), color_space = &amp;quot;Lab&amp;quot;)
+imHeatmap(im_dist, palette = viridisLite::viridis(100), 
+          legend = FALSE)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/function-gallery-for-recolorize/index_files/figure-html/unnamed-chunk-14-1.png&#34; width=&#34;384&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;plotColorClusters&lt;/code&gt;: Plots color clusters in a 3D color space.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;par(mar = rep(1, 4))
+plotColorClusters(recluster_fit$centers, 
+                  recluster_fit$sizes, 
+                  color_space = &amp;quot;sRGB&amp;quot;,
+                  xlab = &amp;quot;red&amp;quot;, ylab = &amp;quot;green&amp;quot;, zlab = &amp;quot;blue&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/function-gallery-for-recolorize/index_files/figure-html/unnamed-chunk-15-1.png&#34; width=&#34;384&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;plotColorPalette&lt;/code&gt;: Alternatively, just plot as a color palette.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;par(mar = rep(0, 4))
+plotColorPalette(recluster_fit$centers, recluster_fit$sizes)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/function-gallery-for-recolorize/index_files/figure-html/unnamed-chunk-16-1.png&#34; width=&#34;384&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;h3 id=&#34;exporting-to-other-packages-or-files&#34;&gt;Exporting to other packages or files&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;splitByColor&lt;/code&gt;: Separates color clusters into individual layers (binary masks).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;layout(matrix(1:6, nrow = 1))
+plotImageArray(rc_edit$original_img)
+corbetti_layers &amp;lt;- splitByColor(rc_edit, plot_method = &amp;quot;over&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/function-gallery-for-recolorize/index_files/figure-html/unnamed-chunk-17-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;classify_recolorize&lt;/code&gt;: Converts a &lt;code&gt;recolorize&lt;/code&gt; object to a &lt;a href=&#34;https://rdrr.io/cran/pavo/man/classify.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;classify&lt;/a&gt; object in the &lt;a href=&#34;https://rdrr.io/cran/pavo/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;pavo&lt;/a&gt; package for linking with spectral data.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;recolorize_adjacency&lt;/code&gt;: Converts to a &lt;code&gt;classify&lt;/code&gt; object using the above function, then runs the &lt;a href=&#34;https://rdrr.io/cran/pavo/man/adjacent.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;adjacency and boundary strength analysis&lt;/a&gt; function using values for human perceptual similarity.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;recolorizeVector&lt;/code&gt;: Converts a bitmap (i.e. pixel) image to a vector image.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;rc_vector &amp;lt;- recolorizeVector(recluster_fit, size_filter = 0.15, smoothness = 5)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/function-gallery-for-recolorize/index_files/figure-html/unnamed-chunk-19-1.png&#34; width=&#34;144&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Introduction to recolorize</title>
+      <link>/post/introduction-to-recolorize/</link>
+      <pubDate>Tue, 13 Apr 2021 00:00:00 +0000</pubDate>
+      <guid>/post/introduction-to-recolorize/</guid>
+      <description>&lt;h2 id=&#34;color-based-image-segmentation-for-people-with-other-things-to-do&#34;&gt;color-based image segmentation (for people with other things to do)&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;You can also tour the functions in the &lt;a href=&#34;gallery.html&#34;&gt;function gallery&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The &lt;code&gt;recolorize&lt;/code&gt; package is a toolbox for making color maps, essentially color-based image segmentation, using a combination of automatic, semi-automatic, and manual procedures. It has four major goals:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Provide a middle ground between automatic segmentation methods (which are hard to modify when they don&amp;rsquo;t work well) and manual methods (which can be slow and subjective).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Be deterministic whenever possible, so that you always get the same results from the same code.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Be modular and modifiable, so that you can tailor it for your purposes.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Play nice with other color analysis tools.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The color map above, for example, was generated using a single function which runs in a few seconds (and is deterministic):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(recolorize)
+
+# get the path to the image (comes with the package, so we use system.file):
+img &amp;lt;- system.file(&amp;quot;extdata/corbetti.png&amp;quot;, package = &amp;quot;recolorize&amp;quot;)
+
+# fit a color map (only provided parameter is a color similarity cutoff)
+recolorize_obj &amp;lt;- recolorize2(img, cutoff = 45)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Notice what we didn’t have to input: we didn’t have to declare how many colors we expected (5), what we expect those colors to be (red, green, blue, black, and white), which pixels to include in each color patch, or where the boundaries of those patches are.&lt;/p&gt;
+&lt;p&gt;This introduction is intended to get you up and running with the &lt;code&gt;recolorize&lt;/code&gt; package. Ideally, after reading it, you will have enough information to start to play around with the set of tools that it provides in a way that suits what you need it to do.&lt;/p&gt;
+&lt;p&gt;I have tried not to assume too much about the reader&amp;rsquo;s background knowledge and needs, except that you are willing to use R and you have a color segmentation problem you have to solve before you can do something interesting with images. I primarily work with images of animals (beetles, fish, lizards, butterflies, snakes, birds, etc), and that will probably come through in the documentation. But it should work just as well for other kinds of images. Maybe better!&lt;/p&gt;
+&lt;p&gt;I hope that this package will be helpful to you, and that if it is, you will share it with others who might find it helpful too. I had a lot of fun discussions with a lot of interesting people while I was making it, for which I&amp;rsquo;m very grateful.&lt;/p&gt;
+&lt;p&gt;If something is unclear or you find a bug, please get in touch or &lt;a href=&#34;https://github.com/hiweller/recolorize/issues&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;file an issue on the GitHub page&lt;/a&gt;. Suggestions for improvements are always welcome!&lt;/p&gt;
+&lt;h2 id=&#34;quick-start&#34;&gt;Quick start&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The bare minimum to start toying around with the package.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The basic &lt;code&gt;recolorize&lt;/code&gt; workflow is initial clustering step &lt;code&gt;\(\rightarrow\)&lt;/code&gt; refinement step &lt;code&gt;\(\rightarrow\)&lt;/code&gt; manual tweaks.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Images should first be color-corrected and have any background masked out, ideally with transparency, as in the image above, for example (&lt;em&gt;Chrysochroa corbetti&lt;/em&gt;, taken by &lt;a href=&#34;https://www.thelordlab.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Nathan P. Lord&lt;/a&gt;, used with permission and egregiously downsampled to ~250x150 pixels by me).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;In the initial clustering step, we bin all of the pixels into (in this case) 8 total clusters:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;init_fit &amp;lt;- recolorize(img, method = &amp;quot;hist&amp;quot;, bins = 2, 
+                       color_space = &amp;quot;sRGB&amp;quot;)
+#&amp;gt; 
+#&amp;gt; Using 2^3 = 8 total bins
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;384&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Followed by a refinement step where we combine clusters by their similarity:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;refined_fit &amp;lt;- recluster(init_fit, similarity_cutoff = 45)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;576&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-5-2.png&#34; width=&#34;576&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# pretty big improvement!
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The &lt;code&gt;recolorize2&lt;/code&gt; function above calls these functions in sequence, since they tend to be pretty effective in combination.&lt;/p&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;Finally, we can do manual refinements to clean up the different color layers, for example absorbing the red speckles into the surrounding color patches:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;absorb_red &amp;lt;- absorbLayer(refined_fit, layer_idx = 3,
+                          size_condition = function(s) s &amp;lt;= 15,
+                          highlight_color = &amp;quot;cyan&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;480&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Or performing simple morphological operations on individual layers:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;final_fit &amp;lt;- editLayer(absorb_red, 3,
+                        operation = &amp;quot;fill&amp;quot;, px_size = 4)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;480&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;You can also batch process images using the same parameters, although &lt;code&gt;recolorize&lt;/code&gt; functions only deal with one image at a time, so you will have to use a for loop or define a new function to call the appropriate functions in the right order:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# get all 5 beetle images:
+images &amp;lt;- dir(system.file(&amp;quot;extdata&amp;quot;, package = &amp;quot;recolorize&amp;quot;), &amp;quot;png&amp;quot;, full.names = TRUE)
+
+# make an empty list to store the results:
+rc_list &amp;lt;- vector(&amp;quot;list&amp;quot;, length = length(images))
+
+# run `recolorize2` on each image
+# you would probably want to add more sophisticated steps in here as well, but you get the idea
+for (i in 1:length(images)) {
+  rc_list[[i]] &amp;lt;- suppressMessages(recolorize2(images[i], bins = 2, 
+                              cutoff = 30, plotting = FALSE))
+}
+
+# plot for comparison:
+layout(matrix(1:10, nrow = 2))
+for (i in rc_list) {
+  plotImageArray(i$original_img)
+  plotImageArray(recoloredImage(i))
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;576&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# given the variety of colors in the dataset, not too bad, 
+# although you might go in and refine these individually
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Once you have a color map you&amp;rsquo;re happy with, you can export to a variety of formats. For instance, if I wanted to run Endler&amp;rsquo;s &lt;a href=&#34;https://rdrr.io/cran/pavo/man/adjacent.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;adjacency and boundary strength analysis&lt;/a&gt; in the &lt;code&gt;pavo&lt;/code&gt; package, using human perception:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;adj &amp;lt;- recolorize_adjacency(rc_list[[1]], coldist = &amp;quot;default&amp;quot;, hsl = &amp;quot;default&amp;quot;)
+#&amp;gt; Using single set of coldists for all images.
+#&amp;gt; Using single set of hsl values for all images.
+print(adj[ , c(57:62)]) # just print the chromatic and achromatic boundary strength values
+#&amp;gt;      m_dS     s_dS     cv_dS     m_dL     s_dL     cv_dL
+#&amp;gt;  36.33178 11.90417 0.3276517 24.88669 17.80173 0.7153115
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you&amp;rsquo;d like a deeper explanation of each of these steps, as well as how to modify them to suit your needs, along with what else the package can do: read on!&lt;/p&gt;
+&lt;h2 id=&#34;before-you-start&#34;&gt;Before you start&lt;/h2&gt;
+&lt;p&gt;Color segmentation can be a real rabbit hole—that is, it can be pretty easy to become fixated on getting perfect results, or on trying to define some objective standard for what correct segmentation looks like. The problem with this mindset is that there’s no set of universal parameters that will give you perfect segmentation results for every image, because images alone don’t always contain all the relevant information: color variation due to poor lighting in one image could be just as distinct as color variation due to pattern striations in another.&lt;/p&gt;
+&lt;p&gt;The correct output for color segmentation depends on your goal: are you concerned with identifying regions of structural vs. pigmented color? Does the intensity of the stain on your slide matter, or just presence/absence? If you have a few dozen stray pixels of the wrong color in an image with hundreds of thousands of correctly categorized pixels, will that meaningfully affect your calculations?&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s take the jewel beetle (family Buprestidae) images that come with the package as an example. If I want to segment the lefthand image (&lt;em&gt;Chrysochroa fulgidissima&lt;/em&gt;), the solution depends on my question. If my question is &amp;ldquo;How does the placement and size of these red bands compare to that of closely related beetles?&amp;rdquo; then I really just want to separate the red bands from the rest of the body, so I would want the color map in the middle. If my question is &amp;ldquo;How much do these red bands stand out from the iridescent green base of the beetle?&amp;rdquo; then I care about the brighter orange borders of the bands, because these increase the boundary strength and overall contrast in the beetle&amp;rsquo;s visual appearance—so I would go with map 2 on the right.
+&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-10-1.png&#34; width=&#34;576&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;So before you start, I highly recommend writing down &lt;em&gt;precisely&lt;/em&gt; what you want to measure at the end of your analysis, to avoid becoming weighed down by details that may not matter. It will save you a lot of time.&lt;/p&gt;
+&lt;h2 id=&#34;step-0-image-acquisition--preparation&#34;&gt;Step 0: Image acquisition &amp;amp; preparation&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;What to do before you use recolorize.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Before we attempt image segmentation, we need segmentable images. &lt;code&gt;recolorize&lt;/code&gt; doesn’t process your images for you beyond a few basic things like resizing, rotating, and blurring (which can help with segmentation). You should do all image processing steps which are usually necessary for getting quantitative color data, like white balance correction, gradient correction, or background removal, before inputting them to &lt;code&gt;recolorize&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;There are lots of software tools available for making these kinds of corrections: GIMP, FIJI/ImageJ, and even the imager package will provide options for some or all of these. If you really want to get pipeline-y, Python has a much more robust set of image processing libraries that will help with automatic color correction and background masking, which is well beyond the scope of this intro.&lt;/p&gt;
+&lt;p&gt;If you are at all concerned with sensory biology and animal vision, I highly recommend &lt;a href=&#34;http://www.empiricalimaging.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;micaToolbox&lt;/a&gt;, which is a well-documented and comprehensive toolkit for creating images as animals see them (rather than as cameras and computers see them); see especially the instructions for creating false color &lt;a href=&#34;http://www.empiricalimaging.com/knowledge-base/creating-cone-catch-models/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;cone-mapped images&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The corrections you have to make really depend on what you’re trying to do. If you just care about the regions but don’t really care about the final colors they end up being assigned, you probably don’t need to worry too much about color correction; if you’re working with histology slides, you probably don’t need to mask the background; if you have a really even and diffuse lighting setup, you probably won’t have to deal with shadows or gradients.&lt;/p&gt;
+&lt;h3 id=&#34;background-masking-with-transparencies&#34;&gt;Background masking with transparencies&lt;/h3&gt;
+&lt;p&gt;If you’re masking the background, use transparencies. This is pretty easy to do in GIMP, Photoshop, or ImageJ. The transparency layer (or alpha channel) is the fourth channel of an image (the other three being the R, G, and B channels), and &lt;code&gt;recolorize&lt;/code&gt; treats it like a binary mask: any pixel with an alpha value of 1 is retained, and any pixel with an alpha value of &amp;lt; 1 is ignored. This means you don’t have to worry about finding a uniform background color that is sufficiently different from your foreground object in every image, which can otherwise be a real pain.&lt;/p&gt;
+&lt;p&gt;Using transparency is unambiguous, and has the bonus benefit of making for nicer plots, too, since you don’t have to worry about the corners of your images overlapping and blocking each other. All the images in this demo have transparent backgrounds. However, you can use the lower and upper arguments to set boundaries for excluding pixels as background based on their color (see documentation). Just know that these will be set to transparent internally.&lt;/p&gt;
+&lt;h2 id=&#34;step-1-loading--processing-images&#34;&gt;Step 1: Loading &amp;amp; processing images&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;How to get images into R.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;We can read in an image by passing the filepath to the &lt;code&gt;readImage&lt;/code&gt; function. This is a pretty generic function (almost every image processing package in R has something similar); the &lt;code&gt;recolorize&lt;/code&gt; version doesn&amp;rsquo;t even assign the output to a special class (so don&amp;rsquo;t try to print it).&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# define image path - we&#39;re using an image that comes with the package
+img_path &amp;lt;- system.file(&amp;quot;extdata/corbetti.png&amp;quot;, package = &amp;quot;recolorize&amp;quot;)
+
+# load image
+img &amp;lt;- readImage(img_path, resize = NULL, rotate = NULL)
+
+# it&#39;s just an array with 4 channels:
+dim(img)
+#&amp;gt; [1] 243 116   4
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;An image is a numeric array with either 3 or 4 channels (R, G, B, and optionally alpha for transparency). JPG images will only have 3 channels; PNG images will have 4. This is quite a small image (243x116 pixels) with 4 channels.&lt;/p&gt;
+&lt;p&gt;We can plot the whole array as an image, or plot one channel at a time. Notice that the red patches are bright in the R channel, same for blue-B channel, green-G channel, etc—and that the off-white patch is bright for all channels, while the black patches are dark in all channels. The alpha channel is essentially just a mask that tells us which parts of the image to ignore when processing it further.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;layout(matrix(1:5, nrow = 1))
+plotImageArray(img, main = &amp;quot;RGB image&amp;quot;)
+plotImageArray(img[ , , 1], main = &amp;quot;R channel&amp;quot;)
+plotImageArray(img[ , , 2], main = &amp;quot;G channel&amp;quot;)
+plotImageArray(img[ , , 3], main = &amp;quot;B channel&amp;quot;)
+plotImageArray(img[ , , 4], main = &amp;quot;Alpha channel&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;576&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Optionally, when you load the image, you can resize it (highly recommended for large images) and rotate it. Image processing is computationally intensive, and R is not especially good at it, so downsampling it usually a good idea. A good rule of thumb for downsampling is that you want the smallest details you care about in the image (say, spots on a ladybug) to be about 5 pixels in diameter (so if your spots have a 20 pixel diameter, you can set &lt;code&gt;resize = 0.25&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;The only other thing you might do to your images before sending them to the main &lt;code&gt;recolorize&lt;/code&gt; functions is &lt;code&gt;blurImage&lt;/code&gt;. This is really useful for minimizing color variation due to texture (e.g. scales on a lizard, feathers on a bird, sensory hairs on an insect), and you can apply one of several smoothing algorithms from the &lt;code&gt;imager&lt;/code&gt; package, including edge-preserving blurs:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;blurred_img &amp;lt;- blurImage(img, blur_function = &amp;quot;blur_anisotropic&amp;quot;,
+                         amplitude = 10, sharpness = 0.2)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-13-1.png&#34; width=&#34;576&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;This step is optional: most of the &lt;code&gt;recolorize&lt;/code&gt; functions will accept a path to an image as well as an image array. But once you&amp;rsquo;re happy here, we can start defining color regions!&lt;/p&gt;
+&lt;h2 id=&#34;step-2-initial-clustering&#34;&gt;Step 2: Initial clustering&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Go from thousands of colors to a manageable number for further refinement.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The color clustering in recolorize usually starts with an initial clustering step which produces more color clusters than the final color map will have, which are then edited and combined to form the final color map. We start with an over-clustering step because it is a quick way to go from an overwhelming number of colors (256^3 unique RGB colors) to a manageable number that can be manually inspected or automatically re-clustered. You’ll usually do this using the &lt;code&gt;recolorize&lt;/code&gt; function, which is the core of the package (go figure!):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;corbetti &amp;lt;- system.file(&amp;quot;extdata/corbetti.png&amp;quot;, package = &amp;quot;recolorize&amp;quot;)
+recolorize_defaults &amp;lt;- recolorize(img = corbetti)
+#&amp;gt; 
+#&amp;gt; Using 2^3 = 8 total bins
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-14-1.png&#34; width=&#34;384&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;This function does a lot under the hood: we read in the image as an array, binned every pixel in the image into one of eight bins in RGB color space, calculated the average color of all the pixels assigned to a given bin, recolored the image to show which pixel was assigned to which color center, and returned all of that information in the &lt;code&gt;recolorize_defaults&lt;/code&gt; object. Pretty much everything beyond this step will be a modification of one of those elements, so we&amp;rsquo;ll take a second to examine the contents of that output.&lt;/p&gt;
+&lt;h3 id=&#34;the-recolorize-class&#34;&gt;The &lt;code&gt;recolorize&lt;/code&gt; class&lt;/h3&gt;
+&lt;p&gt;Objects of S3 class &lt;code&gt;recolorize&lt;/code&gt; are lists with several elements:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;attributes(recolorize_defaults)
+#&amp;gt; $names
+#&amp;gt; [1] &amp;quot;original_img&amp;quot;      &amp;quot;centers&amp;quot;           &amp;quot;sizes&amp;quot;            
+#&amp;gt; [4] &amp;quot;pixel_assignments&amp;quot;
+#&amp;gt; 
+#&amp;gt; $class
+#&amp;gt; [1] &amp;quot;recolorize&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;original_img&lt;/code&gt; is a a &lt;code&gt;raster&lt;/code&gt; matrix, essentially a matrix of hex color codes. This is a more lightweight version of the 3D/4D color image array we loaded earlier, and can be plotted easily by running &lt;code&gt;plot(recolorize_defaults$original_img)&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;centers&lt;/code&gt; is a matrix of RGB centers (0-1 range) for each of the color patches. Their order matches the index values in the &lt;code&gt;pixel_assignments&lt;/code&gt; matrix.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;sizes&lt;/code&gt; is a vector of patch sizes, whose order matches the row order of &lt;code&gt;centers&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;pixel_assignments&lt;/code&gt; is a paint-by-numbers matrix, where each pixel is coded as the color center to which it was assigned. For example, cells with a &lt;code&gt;1&lt;/code&gt; have been assigned to the color represented by row 1 of &lt;code&gt;centers&lt;/code&gt;. Background pixels are marked as 0.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;If you plot the whole &lt;code&gt;recolorize&lt;/code&gt; object, you&amp;rsquo;ll get back the plot you see above: the original image, the color map (where each pixel has been recolored), and the color palette. You can also plot each of these individually:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;layout(matrix(1:3, nrow = 1), widths = c(0.45, 0.45, 0.1))
+par(mar = rep(0, 4))
+plot(recolorize_defaults$original_img)
+plotImageArray(recolorize_defaults$pixel_assignments / 8)
+plotColorPalette(recolorize_defaults$centers, recolorize_defaults$sizes,
+                 horiz = FALSE)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-16-1.png&#34; width=&#34;384&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;You&amp;rsquo;ll notice this doesn&amp;rsquo;t look exactly like the function output above. Aside from some wonky scaling issues, the pixel assignment matrix plotted as a grayscale image (and we had to divide it by the number of colors in the image so it was in a 0-1 range). That&amp;rsquo;s because we didn&amp;rsquo;t tell R which colors to make each of those values, so layer 1 is the darkest color and layer 8 is the brightest color in the image.&lt;/p&gt;
+&lt;p&gt;You can get the recolored image by calling &lt;code&gt;recoloredImage&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# type = raster gets you a raster (like original_img); type = array gets you an 
+# image array
+recolored_img &amp;lt;- recoloredImage(recolorize_defaults, type = &amp;quot;array&amp;quot;)
+plotImageArray(recolored_img)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-17-1.png&#34; width=&#34;192&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;recoloredImage&lt;/code&gt; is just a shortcut function for &lt;code&gt;constructImage&lt;/code&gt;, which lets you decide which colors to assign to each category in case you want to swap out the palette:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;colors &amp;lt;- c(&amp;quot;navy&amp;quot;, &amp;quot;lightblue&amp;quot;, &amp;quot;blueviolet&amp;quot;,
+            &amp;quot;turquoise&amp;quot;, &amp;quot;slateblue&amp;quot;, &amp;quot;royalblue&amp;quot;, 
+            &amp;quot;aquamarine&amp;quot;, &amp;quot;dodgerblue&amp;quot;)
+blue_beetle &amp;lt;- constructImage(recolorize_defaults$pixel_assignments, 
+               centers = t(col2rgb(colors) / 255))
+
+# a very blue beetle indeed:
+plotImageArray(blue_beetle)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-18-1.png&#34; width=&#34;192&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Now that you have a better understanding of what these objects contain and what to do with them, we can start to unpack exactly what this function is doing.&lt;/p&gt;
+&lt;h3 id=&#34;the-recolorize-function&#34;&gt;The &lt;code&gt;recolorize&lt;/code&gt; function&lt;/h3&gt;
+&lt;p&gt;The main &lt;code&gt;recolorize&lt;/code&gt; function has a simple goal: to take your image from a huge number of colors to a manageable number of color clusters. This falls under a category of methods for &lt;a href=&#34;https://en.wikipedia.org/wiki/Color_quantization&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;color quantization&lt;/a&gt;, although we have a slightly different goal here. The typical reason for doing color quantization is to simplify an image while making it look as visually similar as possible to the original; our goal is not to represent the original image, but to create a set of building blocks to combine and clean up so we can refer to whole color patches easily.&lt;/p&gt;
+&lt;p&gt;If you look at the documentation for the &lt;code&gt;recolorize&lt;/code&gt; function, you’ll see a lot of user-specifiable parameters. There are only really 3 major ones:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;the color space in which the clustering is done (&lt;code&gt;color_space&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;the clustering method (the &lt;code&gt;method&lt;/code&gt; argument)&lt;/li&gt;
+&lt;li&gt;the number of color clusters (&lt;code&gt;bins&lt;/code&gt; for &lt;code&gt;method = hist&lt;/code&gt; and &lt;code&gt;n&lt;/code&gt; for &lt;code&gt;method = kmeans&lt;/code&gt;)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;You can also map an image to an externally imposed set of colors using another function, &lt;code&gt;imposeColors&lt;/code&gt;, which can be useful for batch processing images.&lt;/p&gt;
+&lt;p&gt;We&amp;rsquo;ll go over each of these parameters and what they do. I&amp;rsquo;ll give mild advice about how to navigate these options, but there&amp;rsquo;s a reason I&amp;rsquo;ve included all of theme here, which is that I think any combination of these parameters can be useful depending on the context.&lt;/p&gt;
+&lt;h4 id=&#34;color-spaces&#34;&gt;Color spaces&lt;/h4&gt;
+&lt;p&gt;Color spaces are ways to represent colors as points in multi-dimensional spaces, where each axis corresponds to some aspect of the color. You&amp;rsquo;re probably familiar with RGB (red-green-blue) color space and HSV (hue-saturation-value) color space. In RGB space, colors vary by the amount of red, green, and blue they have, where a coordinate of [0, 0, 1] would be pure blue (no red or green), [1, 1, 1] would be white, [0, 1, 1] would be cyan, etc. This is how most images are stored and displayed on computers, although it&amp;rsquo;s not always very intuitive.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;recolorize&lt;/code&gt; package gives you a variety of options for color spaces, but by far the two most commonly used are RGB (&lt;code&gt;color_space = sRGB&lt;/code&gt;) and CIE Lab (&lt;code&gt;color_space = Lab&lt;/code&gt;). CIE Lab is popular because it approximates perceptual uniformity, which means that the distances between colors in CIE Lab space are proportional to how different they actually seem to human beings. The axes represent luminance (L, 0 = black and 100 = white), red-green (a, negative values = more green and positive values = more red), and blue-yellow (b, negative values = more blue and positive values = more yellow). The idea is that something can be greenish-blue, or reddish-yellow, but not reddish-green, etc. This can be a little confusing, but the results it provides are really intuitive. For example, in RGB space, red is as similar to yellow as it is to black. In CIE Lab, red and yellow are close together, and are about equally far from black.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;ve written in more detail about color spaces for another package &lt;a href=&#34;https://cran.r-project.org/web/packages/colordistance/vignettes/color-spaces.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;, which I would recommend reading for a more detailed overview, but let&amp;rsquo;s see what happens if we plot all of the non-background pixels from our &lt;em&gt;C. corbetti&lt;/em&gt; example in RGB compared to CIE Lab color space (forgive the crummy plotting):&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-19-1.png&#34; width=&#34;576&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-19-2.png&#34; width=&#34;576&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;We can identify green, red, blue, black, and white pixels in both sets of plots, but their distributions are very different.&lt;/p&gt;
+&lt;p&gt;In practice, I find myself toggling between these two color spaces depending on the color distributions in my images. For example, when dealing with &lt;em&gt;C. corbetti&lt;/em&gt;, I would use RGB, because the beetle is literally red, green, and blue. When dealing with the red and green &lt;em&gt;C. fulgidissima&lt;/em&gt; above, I found that CIE Lab produced better results, because it separates red and green pixels by much more distance. But in general, especially as you increase the number of initial clusters, this matters less at this stage than at the refinement stage (where you can switch between color spaces again). Because CIE Lab is not evenly distributed on all axes (i.e. is not a cube), you may need to use more bins in CIE Lab space than in RGB. (Try fitting the &lt;em&gt;C. corbetti&lt;/em&gt; image with CIE Lab space and see what happens for an idea of how much the choice of color space can matter.)&lt;/p&gt;
+&lt;h4 id=&#34;clustering-methods&#34;&gt;Clustering methods&lt;/h4&gt;
+&lt;p&gt;The two clustering methods in &lt;code&gt;recolorize&lt;/code&gt; are color histogram binning (fast, consistent, and deterministic) and k-means clustering (comparatively slower and heuristic, but more intuitive). The &lt;code&gt;bins&lt;/code&gt; argument is accessed by the histogram method, and &lt;code&gt;n&lt;/code&gt; goes with the kmeans method. I highly recommend the histogram binning unless you have a good reason not to use it, but there are good reasons to use k-means clustering sometimes.&lt;/p&gt;
+&lt;p&gt;The histogram binning method is essentially just a 3-dimensional color histogram: we divide up each channel of a color space into a predetermined number of bins, then count the number of pixels that fall into that bin and calculate their average color. So, when we divide each of 3 color channels into 2 bins, we end up with &lt;code&gt;\(2^3 = 8\)&lt;/code&gt; total bins (which is why setting &lt;code&gt;bins = 2&lt;/code&gt; will produce 8 colors as above).&lt;/p&gt;
+&lt;p&gt;k-means clustering, on the other hand, is a well-known method for partitioning data into n clusters. You just provide the number of clusters you want, and it will try to find the best locations for them, where ‘best’ means minimizing the squared Euclidean distances between pixels and color centers within each cluster.&lt;/p&gt;
+&lt;p&gt;To appreciate these differences, we can fit the same number of colors (64) using the histogram method and the k-means method on the same image, then view the resulting color distributions:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# fit 64 colors, both ways
+r_hist &amp;lt;- recolorize(img_path, method = &amp;quot;hist&amp;quot;, bins = 4, plotting = FALSE)
+#&amp;gt; 
+#&amp;gt; Using 4^3 = 64 total bins
+r_k &amp;lt;- recolorize(img_path, method = &amp;quot;k&amp;quot;, n = 64, plotting = FALSE)
+
+plotColorClusters(r_hist$centers, r_hist$sizes, plus = .5,
+                  xlab = &amp;quot;red&amp;quot;, ylab = &amp;quot;green&amp;quot;, zlab = &amp;quot;blue&amp;quot;, 
+                  mar = c(3, 3, 2, 2),
+                  main = &amp;quot;Histogram method&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-20-1.png&#34; width=&#34;576&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;plotColorClusters(r_k$centers, r_k$sizes, plus = .5,
+                  xlab = &amp;quot;red&amp;quot;, ylab = &amp;quot;green&amp;quot;, zlab = &amp;quot;blue&amp;quot;,
+                  mar = c(3, 3, 2, 2),
+                  main = &amp;quot;k-means clustering&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-20-2.png&#34; width=&#34;576&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;The histogram method produced a lot of tiny, nearly-empty clusters that are evenly distributed in the color space, with only a few large clusters (like the black and white ones). The k-means clustering method, on the other hand, produced a lot more medium-sized clusters, as well as splitting the black and white patches across multiple clusters.&lt;/p&gt;
+&lt;p&gt;A lot of color segmentation tools will &lt;em&gt;only&lt;/em&gt; use k-means clustering (or a similar method), because it’s relatively easy to implement and does produce good results if your images have clear color boundaries and very different colors (i.e. the pixels are far apart in color space). If you were going to stop at the initial clustering step, this would probably be a better option than the histogram binning for that reason. The main reason I recommend against it is that it is not deterministic: you will get different colors, and in a different order, every time you run it. For example, if we fit 10 colors three separate times, we get the following color palettes:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;k_list &amp;lt;- lapply(1:3, function(i) recolorize(img_path, &amp;quot;k&amp;quot;, n = 10, plotting = F))
+
+layout(1:3)
+par(mar = rep(1, 4))
+lapply(k_list, function(i) plotColorPalette(i$centers, i$sizes))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-21-1.png&#34; width=&#34;576&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#&amp;gt; [[1]]
+#&amp;gt; NULL
+#&amp;gt; 
+#&amp;gt; [[2]]
+#&amp;gt; NULL
+#&amp;gt; 
+#&amp;gt; [[3]]
+#&amp;gt; NULL
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The colors are similar, but not identical, and they are returned in an arbitrary order. If you run this code one day and pull out all the red clusters by their index, or merge the multiple green clusters, those values will change the next time you run the code. That and the need to specify cluster numbers for each image are more or less why I recommend not using this method unless you have a reason.&lt;/p&gt;
+&lt;p&gt;Binning the colors (histograms) is usually more viable as a first step. It’s quite fast, since we’re not really doing any clustering; the bins we assign the pixels to will be the same for every image, and we’re not calculating the distances between the pixels and their assigned color. It’s also deterministic, which means you get the same result every single time you run it. The downside is that makes this approach almost guaranteed to over-split colors, since your color regions will rarely fall cleanly within the boundaries of these bins, and many of the bins you end up with will be empty or have very few pixels.&lt;/p&gt;
+&lt;h3 id=&#34;number-of-clusters&#34;&gt;Number of clusters&lt;/h3&gt;
+&lt;p&gt;Unlike the color space and binning method, this parameter is pretty intuitive: the more clusters you fit, the more the colors in your image will be split up. It’s convenient to use the same scheme for every image in your dataset, so you might end up using whatever values are needed for your most complex image and over-splitting most of your other images. That’s usually fine, because the next set of steps will try to lump colors together or remove minor details. You want to be just granular enough to capture the details you care about, and it’s okay if some colors are split up.&lt;/p&gt;
+&lt;p&gt;One thing to note is that the &lt;code&gt;bins&lt;/code&gt; argument allows for a different number of bins for each channel. Setting &lt;code&gt;bins = 2&lt;/code&gt; will divide each channel into 2 bins, but you can also set &lt;code&gt;bins = c(5, 2, 2)&lt;/code&gt; to divide up the red channel into 5 bins and the blue and green channels into 2 bins (if in RGB space). This can be convenient if you have a lot of color diversity on only one axis, e.g. you have photographs of mammals which are shades of reddish-brown, and don&amp;rsquo;t need to waste computational time dividing up the blue channel.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# we can go from an unacceptable to an acceptable color map in 
+# CIE Lab space by adding a single additional bin in the luminance channel:
+r_hist_2 &amp;lt;- recolorize(img_path, method = &amp;quot;hist&amp;quot;, color_space = &amp;quot;Lab&amp;quot;, 
+                     bins = 2)
+#&amp;gt; 
+#&amp;gt; Using 2^3 = 8 total bins
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-22-1.png&#34; width=&#34;384&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;r_hist_322 &amp;lt;- recolorize(img_path, 
+                     method = &amp;quot;hist&amp;quot;,
+                     bins = c(3, 2, 2))
+#&amp;gt; 
+#&amp;gt; Using 3*2*2 = 12 bins
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-22-2.png&#34; width=&#34;384&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;h3 id=&#34;imposecolors&#34;&gt;&lt;code&gt;imposeColors()&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;Another option is to impose colors on an image, rather than using intrinsic image colors. Every pixel is assigned to the color it is closest to in some specified color space. Usually, this is useful for batch processing: you get colors from one image, then map them onto another image, so that the color centers correspond across all your images.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;im1 &amp;lt;- system.file(&amp;quot;extdata/ocellata.png&amp;quot;, package = &amp;quot;recolorize&amp;quot;)
+im2 &amp;lt;- system.file(&amp;quot;extdata/ephippigera.png&amp;quot;, package = &amp;quot;recolorize&amp;quot;)
+
+# fit the first image
+fit1 &amp;lt;- recolorize(im1)
+#&amp;gt; 
+#&amp;gt; Using 2^3 = 8 total bins
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-23-1.png&#34; width=&#34;384&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;
+# fit the second image using colors from the first
+# adjust_centers = TRUE would find the average color of all the pixels assigned to 
+# the imposed colors to better match the raw image
+fit2 &amp;lt;- imposeColors(im2, fit1$centers, adjust_centers = FALSE)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-23-2.png&#34; width=&#34;384&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;h2 id=&#34;step-3-refinement&#34;&gt;Step 3: Refinement&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Using simple rules to improve the initial results.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Once we’ve reduced an image down to a tractable number of colors, we can define simple procedures for how to combine them based on similarity. &lt;code&gt;recolorize&lt;/code&gt; (currently) comes with two of these: &lt;code&gt;recluster&lt;/code&gt;, which merges colors by perceived similarity, and &lt;code&gt;thresholdRecolor&lt;/code&gt;, which drops minor colors. Both are simple, but surprisingly effective. They’re also built on top of some really simple functions we’ll see in a bit, so if you need to, you can build out a similar procedure tailored to your dataset—for example, combining layers based only on their brightness values, or only combining green layers.&lt;/p&gt;
+&lt;h3 id=&#34;recluster-and-recolorize2&#34;&gt;&lt;code&gt;recluster()&lt;/code&gt; and &lt;code&gt;recolorize2()&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;This is the one I use the most often, and its implementation is really simple. This function calculates the Euclidean distances between all the color centers in a recolorize object, clusters them hierarchically using &lt;code&gt;hclust&lt;/code&gt;, then uses a user-specified cutoff to combine the most similar colors. As with &lt;code&gt;recolorize&lt;/code&gt;, you can choose your color space, and that will make a big difference. Let’s see this in action:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;recluster_results &amp;lt;- recluster(recolorize_defaults, 
+                               similarity_cutoff = 45)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-24-1.png&#34; width=&#34;576&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-24-2.png&#34; width=&#34;576&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Notice the color dendrogram: it lumped together clusters 4 &amp;amp; 7, clusters 3 &amp;amp; 5, and clusters 6 &amp;amp; 8, because their distance was less than 45. This is in CIE Lab space; if we use RGB space, the range of distances is 0-1:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;recluster_rgb &amp;lt;- recluster(recolorize_defaults, color_space = &amp;quot;sRGB&amp;quot;,
+                           similarity_cutoff = 0.5)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-25-1.png&#34; width=&#34;576&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-25-2.png&#34; width=&#34;576&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;In this case, we get the same results, but this is always worth playing around with. Despite its simplicity, this function is highly effective at producing intuitive results. This is partly because, in only using color similarity to combine clusters, it does not penalize smaller color clusters that can still retain important details. I find myself using it so often that I included a wrapper function, &lt;code&gt;recolorize2&lt;/code&gt;, to run &lt;code&gt;recolorize&lt;/code&gt; and &lt;code&gt;recluster&lt;/code&gt; sequentially in a single step:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# let&#39;s use a different image:
+img &amp;lt;- system.file(&amp;quot;extdata/chongi.png&amp;quot;, package = &amp;quot;recolorize&amp;quot;)
+
+# this is identical to running:
+# fit1 &amp;lt;- recolorize(img, bins = 3)
+# fit2 &amp;lt;- recluster(fit1, similarity_cutoff = 50)
+chongi_fit &amp;lt;- recolorize2(img, bins = 3, cutoff = 45)
+#&amp;gt; 
+#&amp;gt; Using 3^3 = 27 total bins
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-26-1.png&#34; width=&#34;480&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-26-2.png&#34; width=&#34;480&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;There’s also a lot of room for modification here: this is a pretty unsophisticated rule for combining color clusters (ignoring, for example, cluster size, proximity, geometry, and boundary strength), but it’s pretty simple to write better rules if you can think of them, because the functions that are called to implement this are also exported by the package.&lt;/p&gt;
+&lt;h3 id=&#34;thresholdrecolor&#34;&gt;&lt;code&gt;thresholdRecolor()&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;An even simpler rule: drop the smallest color clusters whose cumulative sum (as a proportion of total pixels assigned) is lower than some threshold, like 5% of the image. I thought this would be too simple to be useful, but every once in a while it’s just the thing, especially if you always end up with weird spurious details.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;chongi_threshold &amp;lt;- thresholdRecolor(chongi_fit, pct = 0.1)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-27-1.png&#34; width=&#34;576&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;h2 id=&#34;step-4-minor-edits&#34;&gt;Step 4: Minor edits&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Cleaning up the details.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;These are functions that can be called individually to address problem areas in specific images, or strung together as building blocks to do more complicated operations.&lt;/p&gt;
+&lt;h3 id=&#34;absorblayer&#34;&gt;&lt;code&gt;absorbLayer&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;&amp;ldquo;Absorbs&amp;rdquo; all or part of a layer into the surrounding colors, optionally according to a size or location condition.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;img &amp;lt;- system.file(&amp;quot;extdata/fulgidissima.png&amp;quot;, package = &amp;quot;recolorize&amp;quot;)
+ful_init &amp;lt;- recolorize2(img, bins = 3, cutoff = 60, plotting = F)
+#&amp;gt; 
+#&amp;gt; Using 3^3 = 27 total bins
+ful_absorb &amp;lt;- absorbLayer(ful_init, layer_idx = 3, 
+                          function(s) s &amp;lt;= 250,
+                          y_range = c(0, 0.8), 
+                          highlight_color = &amp;quot;cyan&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-28-1.png&#34; width=&#34;576&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;This function is really useful, but fair warning: it can be quite slow. It works by finding the color patch with which each highlighted component shares the longest border and switching the highlighted component to that color, which is more sophisticated than simply switching the patch color, but requires many more calculations. If you find yourself using this a lot, it&amp;rsquo;s a good idea to make sure you&amp;rsquo;ve downsampled your images using the &lt;code&gt;resize&lt;/code&gt; argument.&lt;/p&gt;
+&lt;h3 id=&#34;editlayereditlayers&#34;&gt;&lt;code&gt;editLayer&lt;/code&gt;/&lt;code&gt;editLayers&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;Applies one of several morphological operations from &lt;code&gt;imager&lt;/code&gt; to a layer (or layers) of a &lt;code&gt;recolorize&lt;/code&gt; object. This can be used to despeckle, fill in holes, or uniformly grow or shrink a color patch. In practice, this is mostly only useful for fixing small imperfections; anything too drastic tends to alter the overall shape of the patch.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# cleans up some of the speckles in the above output
+ful_clean &amp;lt;- editLayers(ful_absorb, layer_idx = c(2, 5),
+                        operations = &amp;quot;fill&amp;quot;, px_sizes = 3, plotting = T)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-29-1.png&#34; width=&#34;384&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;This function is also easy to modify. Internally, it splits the color map into individual masks using &lt;code&gt;splitByColor()&lt;/code&gt; (another recolorize function), then converts those to pixsets for use in &lt;code&gt;imager&lt;/code&gt; before slotting them back in with the unchanged layers.&lt;/p&gt;
+&lt;h3 id=&#34;mergelayers&#34;&gt;&lt;code&gt;mergeLayers&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;Sometimes, you don’t want to define fancy rules for deciding which layers to combine; you just want to combine layers. That’s what this function is for. It takes in a list of numeric vectors for layers to combine (layers in the same vector are combined; those in different list elements are kept separate).&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;merge_fit &amp;lt;- mergeLayers(recolorize_defaults, 
+                         merge_list = list(1, 2, 
+                                           c(3, 5),
+                                           c(4, 7),
+                                           c(6, 8)))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-30-1.png&#34; width=&#34;576&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;You might notice this is a bit different than our &lt;code&gt;recluster&lt;/code&gt; results above. That’s because internally, &lt;code&gt;recluster&lt;/code&gt; actually uses &lt;code&gt;imposeColors&lt;/code&gt; to refit the color map, rather than just merging layers; I have found this often produces slightly nicer results, because pixels that were on the border of one cutoff or another don’t get stranded in the wrong layer. On the other hand, &lt;code&gt;mergeLayers&lt;/code&gt; is considerably faster.&lt;/p&gt;
+&lt;h2 id=&#34;step-45-visualizations&#34;&gt;Step 4.5: Visualizations&lt;/h2&gt;
+&lt;p&gt;Making color maps is an obviously visual process, so it’s good to use visual feedback as much as possible. We’ve already seen a few of these functions in action, specifically &lt;code&gt;plotColorPalette&lt;/code&gt; and &lt;code&gt;plotImageArray&lt;/code&gt;, which are used in almost every function that produces a &lt;code&gt;recolorize&lt;/code&gt; object. I’ll point out three others that I think are quite useful: &lt;code&gt;imDist&lt;/code&gt;, &lt;code&gt;plotColorClusters&lt;/code&gt;, and &lt;code&gt;splitByColor&lt;/code&gt; (which also doubles as an export function).&lt;/p&gt;
+&lt;h3 id=&#34;imdist&#34;&gt;&lt;code&gt;imDist&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;Compares two versions of the same image by calculating the color distance between the colors of each pair of pixels (&lt;code&gt;imDist&lt;/code&gt;), and gives you a few more options for plotting the results (&lt;code&gt;imHeatmap&lt;/code&gt;). You can use it to get the distances between the original image and the color map:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;layout(matrix(1:2, nrow = 1))
+
+# calculates the distance matrix and plots the results
+dist_original &amp;lt;- imDist(readImage(img),
+                        recoloredImage(ful_clean), color_space = &amp;quot;sRGB&amp;quot;)
+
+# more plotting options - setting the range is important for comparing 
+# across images (max is sqrt(3) in sRGB space, ~120 in Lab)
+imHeatmap(dist_original, viridisLite::inferno(100), range = c(0, sqrt(3)))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-31-1.png&#34; width=&#34;480&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;The resulting object is a simple matrix of distances between each pair of pixels in the given color space. These are essentially residuals:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;hist(dist_original, main = &amp;quot;sRGB distances&amp;quot;, xlab = &amp;quot;Distance&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-32-1.png&#34; width=&#34;384&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;A word of warning here: it is easy to look at this and decide to come up with a procedure for automatically fitting color maps using a kind of AIC metric, trying to get the lowest SSE with the minimum set of color centers. You’re welcome to try that, but given that this is discarding spatial information, it is probably not a general solution (I haven’t had much luck with it). But there is probably some room to play here.&lt;/p&gt;
+&lt;h3 id=&#34;splitbycolor&#34;&gt;&lt;code&gt;splitByColor&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;This is a dual-use function: by splitting up the color map into individual layers, you not only can examine the individual layers and decide whether they need any editing or merging, but you also get out a binary mask representing each layer, so you can export individual patches.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;layout(matrix(1:10, nrow = 2, byrow = TRUE))
+
+# &#39;overlay&#39; is not always the clearest option, but it is usually the prettiest:
+layers &amp;lt;- splitByColor(recluster_results, plot_method = &amp;quot;overlay&amp;quot;)
+
+# layers is a list of matrices, which we can just plot:
+lapply(layers, plotImageArray)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-33-1.png&#34; width=&#34;576&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#&amp;gt; [[1]]
+#&amp;gt; [[1]]$mar
+#&amp;gt; [1] 0 0 2 0
+#&amp;gt; 
+#&amp;gt; 
+#&amp;gt; [[2]]
+#&amp;gt; [[2]]$mar
+#&amp;gt; [1] 0 0 2 0
+#&amp;gt; 
+#&amp;gt; 
+#&amp;gt; [[3]]
+#&amp;gt; [[3]]$mar
+#&amp;gt; [1] 0 0 2 0
+#&amp;gt; 
+#&amp;gt; 
+#&amp;gt; [[4]]
+#&amp;gt; [[4]]$mar
+#&amp;gt; [1] 0 0 2 0
+#&amp;gt; 
+#&amp;gt; 
+#&amp;gt; [[5]]
+#&amp;gt; [[5]]$mar
+#&amp;gt; [1] 0 0 2 0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;step-5-exporting&#34;&gt;Step 5: Exporting&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The whole point of this package is to make it easier to use other methods!&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;exporting-to-aimges&#34;&gt;Exporting to aimges&lt;/h3&gt;
+&lt;p&gt;The most direct thing you can do is simply export your recolored images as images, then pass those to whatever other tool you’d like to use, although obviously this doesn’t take full advantage of the format:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# export color map
+png::writePNG(recoloredImage(recluster_results),
+              target = &amp;quot;recolored_corbetti.png&amp;quot;)
+
+# export individual layers from splitByColor
+for (i in 1:length(layers)) {
+  png::writePNG(layers[[i]],
+                target = paste0(&amp;quot;layer_&amp;quot;, i, &amp;quot;.png&amp;quot;))
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;pavohttpsrdrriocranpavomanpavo-packagehtml-package&#34;&gt;&lt;a href=&#34;https://rdrr.io/cran/pavo/man/pavo-package.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;pavo&lt;/a&gt; package&lt;/h3&gt;
+&lt;p&gt;You can also convert a recolorize object to a classify object in the wonderful &lt;code&gt;pavo&lt;/code&gt; package and then run an adjacency analysis. Bonus points if you have reflectance spectra for each of your color patches: by combining the spatial information in the color map with the &lt;code&gt;coldist&lt;/code&gt; object generated by spectral measurements, you can run adjacency analysis for the visual system(s) of your choice right out of the box!&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# convert to a classify object
+as_classify &amp;lt;- classify_recolorize(recluster_results, imgname = &amp;quot;corbetti&amp;quot;)
+adj_analysis &amp;lt;- pavo::adjacent(as_classify, xscale = 10)
+
+# run adjacent directly using human perceptual color distances (i.e. no spectral data - proceed with caution)
+adj_human &amp;lt;- recolorize_adjacency(recluster_results)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can also run an adjacency analysis with &lt;code&gt;recolorize_adjacency&lt;/code&gt;, but only as long as you keep your skeptic hat on. This function works by calculating a &lt;code&gt;coldist&lt;/code&gt; object right from the CIE Lab colors in the color maps, which are themselves probably derived from your RGB image, which is at best a very loose representation of how these colors appear to human eyes. The only reason this is at all reasonable is that it’s producing these values for human vision, so you will be able to see if it’s completely unreasonable. This is fine for getting some preliminary results or if you’re working with aggregate data from many sources and you’re content with specifically human (not just non-UV, but only human) vision. Otherwise, it’s probably a last resort.&lt;/p&gt;
+&lt;h3 id=&#34;patternizehttpscranr-projectorgwebpackagespatternizeindexhtml&#34;&gt;&lt;a href=&#34;https://cran.r-project.org/web//packages/patternize/index.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;patternize&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Coming soon (pending a patternize update), and with many thanks to Steven van Belleghem for his help in making recolorize and patternize get along!&lt;/p&gt;
+&lt;h2 id=&#34;some-advice&#34;&gt;Some advice&lt;/h2&gt;
+&lt;h3 id=&#34;this-is-a-lot-of-options-how-do-i-choose-a-procedure&#34;&gt;This is a lot of options. How do I choose a procedure?&lt;/h3&gt;
+&lt;p&gt;Most things will more or less work; if it looks reasonable, it is. Keep in mind that there is a big difference between getting slightly different color maps and getting qualitatively different results. Keep your final goal in mind. You can also try lots of different things and see if it makes a real difference.&lt;/p&gt;
+&lt;p&gt;I wish I could write a single function that would do all of these steps in the correct sequence and produce perfect results; the reason that function does not exist is because I find I have to do experiment a fair amount with every image set, and I often end up with a different order of operations depending on the problem.&lt;/p&gt;
+&lt;p&gt;Start with &lt;code&gt;recolorize2&lt;/code&gt; and identify the common problems you&amp;rsquo;re encountering. Does it make sense to batch process all of your images, then refine them individually? Is it better to choose a different cutoff for each image? Luckily, these functions are relatively fast, so you can test out different options.&lt;/p&gt;
+&lt;p&gt;You can also get way fancier with cutoffs than I have here. This package is built on some pretty simple scaffolding: you get a starting set of clusters, then you modify them. If you have a better/more refined way of deciding which colors to cluster, then go for it. I will soon be adding some example workflows from collaborators which should be helpful.&lt;/p&gt;
+&lt;p&gt;There is another very tempting option: make a small training set of nice color maps manually with recolorize, then use those to either fit a statistical model for other fits or use machine learning to do the rest. I think this is a really compelling idea; I just haven&amp;rsquo;t tested it yet. Maybe you want to try it out?&lt;/p&gt;
+&lt;h3 id=&#34;can-you-define-an-optimality-condition-to-do-all-the-segmentation-automatically&#34;&gt;Can you define an optimality condition to do all the segmentation automatically?&lt;/h3&gt;
+&lt;p&gt;As far as I can tell, no. This is because of the problem I pointed out at the beginning: the &amp;lsquo;correct&amp;rsquo; segmentation depends on your particular question more than anything else.&lt;/p&gt;
+&lt;h3 id=&#34;how-should-you-store-the-code-used-to-generate-a-color-map&#34;&gt;How should you store the code used to generate a color map?&lt;/h3&gt;
+&lt;p&gt;I like to use &lt;code&gt;rlang::enexpr&lt;/code&gt; to capture the code I run to generate a color map, and store it as another aspect of the recolorize object, like so:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(rlang)
+
+# run this code, then capture it in the brackets:
+steps &amp;lt;- {
+  fit &amp;lt;- recolorize2(img,bins = 3, cutoff = 50)
+  fit2 &amp;lt;- editLayers(fit, c(2, 5),
+                     operations = &amp;quot;fill&amp;quot;, px_sizes = 3)
+  } %&amp;gt;% enexprs()
+
+fit2$steps &amp;lt;- steps
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;what-about-batch-processing&#34;&gt;What about batch processing?&lt;/h3&gt;
+&lt;p&gt;Every function in this package operates on a single image at a time. This is because I&amp;rsquo;ve found that there is so much variation in how people go about batch processing anything: if I tried to impose what I considered to be a useful batch processing structure, within a few months I would find that it was too inflexible for some new project structure I needed to use it for. So, instead, the idea is that you can write your own batch processing functions or for loops as needed to suit your data structure. Or maybe you come up with something better than I can think of, in which case, please let me add it to the package!&lt;/p&gt;
+&lt;h3 id=&#34;what-about-machine-learning-approaches&#34;&gt;What about machine learning approaches?&lt;/h3&gt;
+&lt;p&gt;Using machine learning could work, but only if you already have segmented images for use in training (which presumably you had to do by hand), and making that training set could be extremely time consuming; and the amount of modification required to get a generic algorithm to work might be unjustifiable given the size of (or variance in) your image set. This problem gets a lot worse the more images we have and the more different they are, especially if you have a lot of variance in a small dataset (pretty typical in comparative biology).&lt;/p&gt;
+&lt;p&gt;That said, I don&amp;rsquo;t have much background in ML of any stripe. If you have a handy idea in this area, I would love to know about it.&lt;/p&gt;
+&lt;h2 id=&#34;just-for-fun&#34;&gt;Just for fun&lt;/h2&gt;
+&lt;p&gt;There are two fun functions in here: &lt;code&gt;wernerColor&lt;/code&gt; and &lt;code&gt;recolorizeVector&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;wernerColor&lt;/code&gt; remaps a recolorize object to the colors in Werner&amp;rsquo;s Nomenclature of Colors by Patrick Syme (1821), one of the first attempts at an objective color reference in western science, notably used by Charles Darwin. This is always fun to try out, especially given how many things get tagged as &amp;ldquo;veinous blood red&amp;rdquo; (delightful!):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;rc_werner &amp;lt;- wernerColor(recluster_results)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-37-1.png&#34; width=&#34;480&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Finally, &lt;code&gt;recolorizeVector&lt;/code&gt; converts a bitmap (i.e. pixel) image to a vector image.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;rc_vector &amp;lt;- recolorizeVector(recluster_fit, 
+                              size_filter = 0.15,
+                              smoothness = 5, plotting = TRUE)
+
+# to save as an SVG:
+svg(filename = &amp;quot;corbett_vector.svg&amp;quot;, width = 2, height = 4)
+plot(rc_vector)
+dev.off()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/introduction-to-recolorize/index_files/figure-html/unnamed-chunk-39-1.png&#34; width=&#34;144&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;This function is VERY experimental. If it gives you errors or looks too funky, try decreasing the size filter (which absorbs all components below some size to simplify the image) and the smoothness. Then again, sometimes you want things to look funky. If this is the case, &lt;code&gt;recolorizeVector&lt;/code&gt; will happily enable you.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Modifying pixel plots</title>
+      <link>/post/modifying-pixel-plots/</link>
+      <pubDate>Tue, 13 Apr 2021 00:00:00 +0000</pubDate>
+      <guid>/post/modifying-pixel-plots/</guid>
+      <description>&lt;script src=&#34;/post/modifying-pixel-plots/index_files/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/post/modifying-pixel-plots/index_files/plotly-binding/plotly.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/post/modifying-pixel-plots/index_files/typedarray/typedarray.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/post/modifying-pixel-plots/index_files/jquery/jquery.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;/post/modifying-pixel-plots/index_files/crosstalk/css/crosstalk.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;/post/modifying-pixel-plots/index_files/crosstalk/js/crosstalk.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;/post/modifying-pixel-plots/index_files/plotly-htmlwidgets-css/plotly-htmlwidgets.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;/post/modifying-pixel-plots/index_files/plotly-main/plotly-latest.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/post/modifying-pixel-plots/index_files/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/post/modifying-pixel-plots/index_files/plotly-binding/plotly.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/post/modifying-pixel-plots/index_files/typedarray/typedarray.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/post/modifying-pixel-plots/index_files/jquery/jquery.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;/post/modifying-pixel-plots/index_files/crosstalk/css/crosstalk.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;/post/modifying-pixel-plots/index_files/crosstalk/js/crosstalk.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;/post/modifying-pixel-plots/index_files/plotly-htmlwidgets-css/plotly-htmlwidgets.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;/post/modifying-pixel-plots/index_files/plotly-main/plotly-latest.min.js&#34;&gt;&lt;/script&gt;
+&lt;p&gt;The &lt;code&gt;plotPixels&lt;/code&gt; function in &lt;code&gt;colordistance&lt;/code&gt; is pretty inflexible. It was originally meant as a diagnostic tool, and the plots it produces are not exactly beautiful:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(colordistance)
+
+# image from the &#39;recolorize&#39; package (github.com/hiweller/recolorize)
+img &amp;lt;- system.file(&amp;quot;extdata/fulgidissima.png&amp;quot;, package = &amp;quot;recolorize&amp;quot;)
+
+# load the image:
+loaded_img &amp;lt;- loadImage(img)
+
+# set the plot layout for opposing pixel plots
+layout(matrix(1:3, nrow = 1), widths = c(0.46, 0.08, 0.46))
+
+# plot the pixels in RGB color space from two angles:
+plotPixels(loaded_img)
+
+# plot the original image
+par(mar = rep(0, 4)) # no margin
+plotImage(loaded_img)
+
+# and pixels from the opposite angle:
+plotPixels(loaded_img, angle = -45)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/modifying-pixel-plots/index_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;These plots are certainly &lt;em&gt;fine&lt;/em&gt; if you want to scope out the color distribution in the image, but I wouldn’t want to display them for communication: the axis text is too large and some of the tick marks overlap; the axis labels are oddly spaced; and depending on the intention of the graphic, I might not want the grid or the plot frame. The axis label thing in particular has always bothered me.&lt;/p&gt;
+&lt;p&gt;Some of those changes are possible to make by passing additional parameters to the &lt;code&gt;plotPixels&lt;/code&gt; function itself, but in practice, I often want more flexibility than this provides. Luckily, the function itself has such simple building blocks that it’s pretty easy to unpack them to get more customized plots.&lt;/p&gt;
+&lt;p&gt;This is how &lt;code&gt;plotPixels&lt;/code&gt; works:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;It takes a dataframe of RGB colors, where pixels are rows and color channels are columns.&lt;/li&gt;
+&lt;li&gt;It creates a vector of hex codes from the RGB colors to tell R which color to make each point.&lt;/li&gt;
+&lt;li&gt;It uses &lt;a href=&#34;https://www.econstor.eu/handle/10419/77160&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;scatterplot3d&lt;/code&gt;&lt;/a&gt; to plot in the 3D color space indicated with the &lt;code&gt;color.space&lt;/code&gt; argument.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;I chose the &lt;code&gt;scatterplot3d&lt;/code&gt; package because, of all the 3D plotting packages, it’s the most lightweight, and more or less just extends the base plotting syntax. It was also written in 2003, so there are a lot of newer packages that provide prettier output and more options, like &lt;a href=&#34;https://cran.r-project.org/web/packages/plot3D/index.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;plot3D&lt;/a&gt; by Karline Soetaert, or the &lt;a href=&#34;https://cran.r-project.org/web/packages/plotly/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;plotly&lt;/a&gt; library.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# load the plot3D library
+library(plot3D)
+
+# get the RGB pixel matrix
+pixels &amp;lt;- loaded_img$filtered.rgb.2d
+
+# make the hex color vector using the rgb() function
+color_vector &amp;lt;- rgb(pixels); head(color_vector) # just a bunch of hex codes!
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;#247872&amp;quot; &amp;quot;#006862&amp;quot; &amp;quot;#006B62&amp;quot; &amp;quot;#00776A&amp;quot; &amp;quot;#00645C&amp;quot; &amp;quot;#007B71&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# use the scatter3D function
+scatter3D(x = pixels[ , 1], 
+          y = pixels[ , 2],
+          z = pixels[ , 3], 
+          colvar = 1:nrow(pixels), # &amp;lt;- note we have to make a fake &#39;variable&#39; to assign each pixel a different color
+          col = color_vector, 
+          colkey = FALSE, # gets rid of the (in this case meaningless) legend
+          xlab = &amp;quot;Red&amp;quot;, ylab = &amp;quot;Green&amp;quot;, zlab = &amp;quot;Blue&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/modifying-pixel-plots/index_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Even the default &lt;code&gt;scatter3D&lt;/code&gt; plot looks a lot better to me: the axis labels hug the axes, and the angle is nicer. We can get fancier with a lot of the options, too:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;scatter3D(x = pixels[ , 1], 
+          y = pixels[ , 2],
+          z = pixels[ , 3], 
+          colvar = 1:nrow(pixels), 
+          col = color_vector, colkey = F,
+          xlab = &amp;quot;Red&amp;quot;, ylab = &amp;quot;Green&amp;quot;, zlab = &amp;quot;Blue&amp;quot;,
+          xlim = 0:1, ylim = 0:1, zlim = 0:1, # RGB max and min
+          pch = 19, # filled circles
+          alpha = 0.5, # partially transparent
+          theta = 115, phi = 25, # change viewing angle
+          bty = &amp;quot;bl2&amp;quot;) # black grid background looks sort of cool
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/modifying-pixel-plots/index_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;What if you want to plot in another color space besides RGB? The only difference is that you have to first convert your pixel matrix to a given color space, for which you have several options.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# convert pixels to CIE Lab coordinates
+pixels_lab &amp;lt;- convertColor(pixels, from = &amp;quot;sRGB&amp;quot;, to = &amp;quot;Lab&amp;quot;)
+
+# color vector remains the same!
+color_vector &amp;lt;- rgb(pixels)
+
+scatter3D(x = pixels_lab[ , 1], 
+          y = pixels_lab[ , 2],
+          z = pixels_lab[ , 3], 
+          colvar = 1:nrow(pixels_lab), 
+          col = color_vector, colkey = F,
+          xlab = &amp;quot;Luminance&amp;quot;, ylab = &amp;quot;a (red-green)&amp;quot;, zlab = &amp;quot;b (yellow-blue)&amp;quot;,
+          theta = 120, phi = -5,
+          xlim = c(0, 100), 
+          pch = 19, # filled circles
+          alpha = 0.5, # partially transparent
+          bty = &amp;quot;b2&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/modifying-pixel-plots/index_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;As an aside, it’s good practice to set the axis limits thoughtfully. This is easy with RGB: all three channels have a 0-1 range. With CIE Lab, this depends on your reference white. The L channel will always be 0-100, and the outer limits for the a and b channels are -127 to 128 each, but for a given reference white converting from sRGB it will be a subset within that range. The axis limits will be set to the range of the data by default, which could be misleading if you’re comparing plots of multiple images.&lt;/p&gt;
+&lt;p&gt;If you’d rather have an interactive plot (especially helpful for data exploration), you can use the &lt;code&gt;plotly&lt;/code&gt; package. I find I have to implement more workarounds to get these plots to behave how I’d expect, but once you get out an interactive plot, it’s pretty slick:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(plotly, quietly = TRUE)
+
+# let&#39;s subsample down to 100 pixels just for this example
+pixel_sub &amp;lt;- as.data.frame(pixels[sample(1:nrow(pixels), 100), ])
+plotly_colors &amp;lt;- rgb(pixel_sub)
+
+# and plot!
+plot_ly(data = pixel_sub, 
+        x = ~r, y = ~g, z = ~b, 
+        type = &amp;quot;scatter3d&amp;quot;, mode = &amp;quot;markers&amp;quot;, 
+        color = I(plotly_colors), # this is a bit of a hack and you&#39;ll get a warning...
+        colors = plotly_colors)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;htmlwidget-1&#34; style=&#34;width:672px;height:480px;&#34; class=&#34;plotly html-widget&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-1&#34;&gt;{&#34;x&#34;:{&#34;visdat&#34;:{&#34;948a74a44f66&#34;:[&#34;function () &#34;,&#34;plotlyVisDat&#34;]},&#34;cur_data&#34;:&#34;948a74a44f66&#34;,&#34;attrs&#34;:{&#34;948a74a44f66&#34;:{&#34;x&#34;:{},&#34;y&#34;:{},&#34;z&#34;:{},&#34;mode&#34;:&#34;markers&#34;,&#34;color&#34;:[&#34;#4D272F&#34;,&#34;#008173&#34;,&#34;#220C10&#34;,&#34;#DB4042&#34;,&#34;#402E2E&#34;,&#34;#6A2023&#34;,&#34;#342232&#34;,&#34;#578900&#34;,&#34;#31811C&#34;,&#34;#6B813F&#34;,&#34;#0092BA&#34;,&#34;#4B3842&#34;,&#34;#9F343D&#34;,&#34;#00AD7B&#34;,&#34;#52AA23&#34;,&#34;#51333D&#34;,&#34;#0B803A&#34;,&#34;#405D44&#34;,&#34;#549BC2&#34;,&#34;#709200&#34;,&#34;#559864&#34;,&#34;#67202C&#34;,&#34;#6E7600&#34;,&#34;#007E3A&#34;,&#34;#38A337&#34;,&#34;#676A20&#34;,&#34;#55423B&#34;,&#34;#85C400&#34;,&#34;#425F46&#34;,&#34;#009D42&#34;,&#34;#37833C&#34;,&#34;#31AC00&#34;,&#34;#539000&#34;,&#34;#C43628&#34;,&#34;#858F00&#34;,&#34;#9B1F2C&#34;,&#34;#009C3D&#34;,&#34;#B9202A&#34;,&#34;#50512C&#34;,&#34;#8A8884&#34;,&#34;#822122&#34;,&#34;#329D86&#34;,&#34;#6F661D&#34;,&#34;#008D3B&#34;,&#34;#006E45&#34;,&#34;#006E7A&#34;,&#34;#861A31&#34;,&#34;#339000&#34;,&#34;#427A0F&#34;,&#34;#BBC4E1&#34;,&#34;#29A234&#34;,&#34;#52781E&#34;,&#34;#049509&#34;,&#34;#877D00&#34;,&#34;#78131D&#34;,&#34;#509B35&#34;,&#34;#0084D4&#34;,&#34;#00B27B&#34;,&#34;#00697F&#34;,&#34;#7D272B&#34;,&#34;#44A212&#34;,&#34;#BA9E00&#34;,&#34;#6E303B&#34;,&#34;#325E3D&#34;,&#34;#288929&#34;,&#34;#781E21&#34;,&#34;#638B00&#34;,&#34;#1A1B20&#34;,&#34;#E47C00&#34;,&#34;#832330&#34;,&#34;#837F41&#34;,&#34;#546E0D&#34;,&#34;#611F22&#34;,&#34;#30822C&#34;,&#34;#66272E&#34;,&#34;#7A770C&#34;,&#34;#6E7600&#34;,&#34;#3B6E3D&#34;,&#34;#972931&#34;,&#34;#009658&#34;,&#34;#573B39&#34;,&#34;#1D963C&#34;,&#34;#00DCBE&#34;,&#34;#4A5786&#34;,&#34;#8B8E00&#34;,&#34;#006A85&#34;,&#34;#00852E&#34;,&#34;#4E803E&#34;,&#34;#006C82&#34;,&#34;#00972E&#34;,&#34;#009037&#34;,&#34;#4C711E&#34;,&#34;#531C29&#34;,&#34;#0072A8&#34;,&#34;#3B262B&#34;,&#34;#4C9628&#34;,&#34;#698A35&#34;,&#34;#658300&#34;,&#34;#B96612&#34;,&#34;#9F5918&#34;],&#34;colors&#34;:[&#34;#4D272F&#34;,&#34;#008173&#34;,&#34;#220C10&#34;,&#34;#DB4042&#34;,&#34;#402E2E&#34;,&#34;#6A2023&#34;,&#34;#342232&#34;,&#34;#578900&#34;,&#34;#31811C&#34;,&#34;#6B813F&#34;,&#34;#0092BA&#34;,&#34;#4B3842&#34;,&#34;#9F343D&#34;,&#34;#00AD7B&#34;,&#34;#52AA23&#34;,&#34;#51333D&#34;,&#34;#0B803A&#34;,&#34;#405D44&#34;,&#34;#549BC2&#34;,&#34;#709200&#34;,&#34;#559864&#34;,&#34;#67202C&#34;,&#34;#6E7600&#34;,&#34;#007E3A&#34;,&#34;#38A337&#34;,&#34;#676A20&#34;,&#34;#55423B&#34;,&#34;#85C400&#34;,&#34;#425F46&#34;,&#34;#009D42&#34;,&#34;#37833C&#34;,&#34;#31AC00&#34;,&#34;#539000&#34;,&#34;#C43628&#34;,&#34;#858F00&#34;,&#34;#9B1F2C&#34;,&#34;#009C3D&#34;,&#34;#B9202A&#34;,&#34;#50512C&#34;,&#34;#8A8884&#34;,&#34;#822122&#34;,&#34;#329D86&#34;,&#34;#6F661D&#34;,&#34;#008D3B&#34;,&#34;#006E45&#34;,&#34;#006E7A&#34;,&#34;#861A31&#34;,&#34;#339000&#34;,&#34;#427A0F&#34;,&#34;#BBC4E1&#34;,&#34;#29A234&#34;,&#34;#52781E&#34;,&#34;#049509&#34;,&#34;#877D00&#34;,&#34;#78131D&#34;,&#34;#509B35&#34;,&#34;#0084D4&#34;,&#34;#00B27B&#34;,&#34;#00697F&#34;,&#34;#7D272B&#34;,&#34;#44A212&#34;,&#34;#BA9E00&#34;,&#34;#6E303B&#34;,&#34;#325E3D&#34;,&#34;#288929&#34;,&#34;#781E21&#34;,&#34;#638B00&#34;,&#34;#1A1B20&#34;,&#34;#E47C00&#34;,&#34;#832330&#34;,&#34;#837F41&#34;,&#34;#546E0D&#34;,&#34;#611F22&#34;,&#34;#30822C&#34;,&#34;#66272E&#34;,&#34;#7A770C&#34;,&#34;#6E7600&#34;,&#34;#3B6E3D&#34;,&#34;#972931&#34;,&#34;#009658&#34;,&#34;#573B39&#34;,&#34;#1D963C&#34;,&#34;#00DCBE&#34;,&#34;#4A5786&#34;,&#34;#8B8E00&#34;,&#34;#006A85&#34;,&#34;#00852E&#34;,&#34;#4E803E&#34;,&#34;#006C82&#34;,&#34;#00972E&#34;,&#34;#009037&#34;,&#34;#4C711E&#34;,&#34;#531C29&#34;,&#34;#0072A8&#34;,&#34;#3B262B&#34;,&#34;#4C9628&#34;,&#34;#698A35&#34;,&#34;#658300&#34;,&#34;#B96612&#34;,&#34;#9F5918&#34;],&#34;alpha_stroke&#34;:1,&#34;sizes&#34;:[10,100],&#34;spans&#34;:[1,20],&#34;type&#34;:&#34;scatter3d&#34;}},&#34;layout&#34;:{&#34;margin&#34;:{&#34;b&#34;:40,&#34;l&#34;:60,&#34;t&#34;:25,&#34;r&#34;:10},&#34;scene&#34;:{&#34;xaxis&#34;:{&#34;title&#34;:&#34;r&#34;},&#34;yaxis&#34;:{&#34;title&#34;:&#34;g&#34;},&#34;zaxis&#34;:{&#34;title&#34;:&#34;b&#34;}},&#34;hovermode&#34;:&#34;closest&#34;,&#34;showlegend&#34;:false},&#34;source&#34;:&#34;A&#34;,&#34;config&#34;:{&#34;showSendToCloud&#34;:false},&#34;data&#34;:[{&#34;x&#34;:[0.301960784313725,0,0.133333333333333,0.858823529411765,0.250980392156863,0.415686274509804,0.203921568627451,0.341176470588235,0.192156862745098,0.419607843137255,0,0.294117647058824,0.623529411764706,0,0.32156862745098,0.317647058823529,0.0431372549019608,0.250980392156863,0.329411764705882,0.43921568627451,0.333333333333333,0.403921568627451,0.431372549019608,0,0.219607843137255,0.403921568627451,0.333333333333333,0.52156862745098,0.258823529411765,0,0.215686274509804,0.192156862745098,0.325490196078431,0.768627450980392,0.52156862745098,0.607843137254902,0,0.725490196078431,0.313725490196078,0.541176470588235,0.509803921568627,0.196078431372549,0.435294117647059,0,0,0,0.525490196078431,0.2,0.258823529411765,0.733333333333333,0.16078431372549,0.32156862745098,0.0156862745098039,0.529411764705882,0.470588235294118,0.313725490196078,0,0,0,0.490196078431373,0.266666666666667,0.729411764705882,0.431372549019608,0.196078431372549,0.156862745098039,0.470588235294118,0.388235294117647,0.101960784313725,0.894117647058824,0.513725490196078,0.513725490196078,0.329411764705882,0.380392156862745,0.188235294117647,0.4,0.47843137254902,0.431372549019608,0.231372549019608,0.592156862745098,0,0.341176470588235,0.113725490196078,0,0.290196078431373,0.545098039215686,0,0,0.305882352941176,0,0,0,0.298039215686275,0.325490196078431,0,0.231372549019608,0.298039215686275,0.411764705882353,0.396078431372549,0.725490196078431,0.623529411764706],&#34;y&#34;:[0.152941176470588,0.505882352941176,0.0470588235294118,0.250980392156863,0.180392156862745,0.125490196078431,0.133333333333333,0.537254901960784,0.505882352941176,0.505882352941176,0.572549019607843,0.219607843137255,0.203921568627451,0.67843137254902,0.666666666666667,0.2,0.501960784313725,0.364705882352941,0.607843137254902,0.572549019607843,0.596078431372549,0.125490196078431,0.462745098039216,0.494117647058824,0.63921568627451,0.415686274509804,0.258823529411765,0.768627450980392,0.372549019607843,0.615686274509804,0.513725490196078,0.674509803921569,0.564705882352941,0.211764705882353,0.56078431372549,0.12156862745098,0.611764705882353,0.125490196078431,0.317647058823529,0.533333333333333,0.129411764705882,0.615686274509804,0.4,0.552941176470588,0.431372549019608,0.431372549019608,0.101960784313725,0.564705882352941,0.47843137254902,0.768627450980392,0.635294117647059,0.470588235294118,0.584313725490196,0.490196078431373,0.0745098039215686,0.607843137254902,0.517647058823529,0.698039215686274,0.411764705882353,0.152941176470588,0.635294117647059,0.619607843137255,0.188235294117647,0.368627450980392,0.537254901960784,0.117647058823529,0.545098039215686,0.105882352941176,0.486274509803922,0.137254901960784,0.498039215686275,0.431372549019608,0.12156862745098,0.509803921568627,0.152941176470588,0.466666666666667,0.462745098039216,0.431372549019608,0.16078431372549,0.588235294117647,0.231372549019608,0.588235294117647,0.862745098039216,0.341176470588235,0.556862745098039,0.415686274509804,0.52156862745098,0.501960784313725,0.423529411764706,0.592156862745098,0.564705882352941,0.443137254901961,0.109803921568627,0.447058823529412,0.149019607843137,0.588235294117647,0.541176470588235,0.513725490196078,0.4,0.349019607843137],&#34;z&#34;:[0.184313725490196,0.450980392156863,0.0627450980392157,0.258823529411765,0.180392156862745,0.137254901960784,0.196078431372549,0,0.109803921568627,0.247058823529412,0.729411764705882,0.258823529411765,0.23921568627451,0.482352941176471,0.137254901960784,0.23921568627451,0.227450980392157,0.266666666666667,0.76078431372549,0,0.392156862745098,0.172549019607843,0,0.227450980392157,0.215686274509804,0.125490196078431,0.231372549019608,0,0.274509803921569,0.258823529411765,0.235294117647059,0,0,0.156862745098039,0,0.172549019607843,0.23921568627451,0.164705882352941,0.172549019607843,0.517647058823529,0.133333333333333,0.525490196078431,0.113725490196078,0.231372549019608,0.270588235294118,0.47843137254902,0.192156862745098,0,0.0588235294117647,0.882352941176471,0.203921568627451,0.117647058823529,0.0352941176470588,0,0.113725490196078,0.207843137254902,0.831372549019608,0.482352941176471,0.498039215686275,0.168627450980392,0.0705882352941176,0,0.231372549019608,0.23921568627451,0.16078431372549,0.129411764705882,0,0.125490196078431,0,0.188235294117647,0.254901960784314,0.0509803921568627,0.133333333333333,0.172549019607843,0.180392156862745,0.0470588235294118,0,0.23921568627451,0.192156862745098,0.345098039215686,0.223529411764706,0.235294117647059,0.745098039215686,0.525490196078431,0,0.52156862745098,0.180392156862745,0.243137254901961,0.509803921568627,0.180392156862745,0.215686274509804,0.117647058823529,0.16078431372549,0.658823529411765,0.168627450980392,0.156862745098039,0.207843137254902,0,0.0705882352941176,0.0941176470588235],&#34;mode&#34;:&#34;markers&#34;,&#34;type&#34;:&#34;scatter3d&#34;,&#34;marker&#34;:{&#34;color&#34;:[&#34;rgba(77,39,47,1)&#34;,&#34;rgba(0,129,115,1)&#34;,&#34;rgba(34,12,16,1)&#34;,&#34;rgba(219,64,66,1)&#34;,&#34;rgba(64,46,46,1)&#34;,&#34;rgba(106,32,35,1)&#34;,&#34;rgba(52,34,50,1)&#34;,&#34;rgba(87,137,0,1)&#34;,&#34;rgba(49,129,28,1)&#34;,&#34;rgba(107,129,63,1)&#34;,&#34;rgba(0,146,186,1)&#34;,&#34;rgba(75,56,66,1)&#34;,&#34;rgba(159,52,61,1)&#34;,&#34;rgba(0,173,123,1)&#34;,&#34;rgba(82,170,35,1)&#34;,&#34;rgba(81,51,61,1)&#34;,&#34;rgba(11,128,58,1)&#34;,&#34;rgba(64,93,68,1)&#34;,&#34;rgba(84,155,194,1)&#34;,&#34;rgba(112,146,0,1)&#34;,&#34;rgba(85,152,100,1)&#34;,&#34;rgba(103,32,44,1)&#34;,&#34;rgba(110,118,0,1)&#34;,&#34;rgba(0,126,58,1)&#34;,&#34;rgba(56,163,55,1)&#34;,&#34;rgba(103,106,32,1)&#34;,&#34;rgba(85,66,59,1)&#34;,&#34;rgba(133,196,0,1)&#34;,&#34;rgba(66,95,70,1)&#34;,&#34;rgba(0,157,66,1)&#34;,&#34;rgba(55,131,60,1)&#34;,&#34;rgba(49,172,0,1)&#34;,&#34;rgba(83,144,0,1)&#34;,&#34;rgba(196,54,40,1)&#34;,&#34;rgba(133,143,0,1)&#34;,&#34;rgba(155,31,44,1)&#34;,&#34;rgba(0,156,61,1)&#34;,&#34;rgba(185,32,42,1)&#34;,&#34;rgba(80,81,44,1)&#34;,&#34;rgba(138,136,132,1)&#34;,&#34;rgba(130,33,34,1)&#34;,&#34;rgba(50,157,134,1)&#34;,&#34;rgba(111,102,29,1)&#34;,&#34;rgba(0,141,59,1)&#34;,&#34;rgba(0,110,69,1)&#34;,&#34;rgba(0,110,122,1)&#34;,&#34;rgba(134,26,49,1)&#34;,&#34;rgba(51,144,0,1)&#34;,&#34;rgba(66,122,15,1)&#34;,&#34;rgba(187,196,225,1)&#34;,&#34;rgba(41,162,52,1)&#34;,&#34;rgba(82,120,30,1)&#34;,&#34;rgba(4,149,9,1)&#34;,&#34;rgba(135,125,0,1)&#34;,&#34;rgba(120,19,29,1)&#34;,&#34;rgba(80,155,53,1)&#34;,&#34;rgba(0,132,212,1)&#34;,&#34;rgba(0,178,123,1)&#34;,&#34;rgba(0,105,127,1)&#34;,&#34;rgba(125,39,43,1)&#34;,&#34;rgba(68,162,18,1)&#34;,&#34;rgba(186,158,0,1)&#34;,&#34;rgba(110,48,59,1)&#34;,&#34;rgba(50,94,61,1)&#34;,&#34;rgba(40,137,41,1)&#34;,&#34;rgba(120,30,33,1)&#34;,&#34;rgba(99,139,0,1)&#34;,&#34;rgba(26,27,32,1)&#34;,&#34;rgba(228,124,0,1)&#34;,&#34;rgba(131,35,48,1)&#34;,&#34;rgba(131,127,65,1)&#34;,&#34;rgba(84,110,13,1)&#34;,&#34;rgba(97,31,34,1)&#34;,&#34;rgba(48,130,44,1)&#34;,&#34;rgba(102,39,46,1)&#34;,&#34;rgba(122,119,12,1)&#34;,&#34;rgba(110,118,0,1)&#34;,&#34;rgba(59,110,61,1)&#34;,&#34;rgba(151,41,49,1)&#34;,&#34;rgba(0,150,88,1)&#34;,&#34;rgba(87,59,57,1)&#34;,&#34;rgba(29,150,60,1)&#34;,&#34;rgba(0,220,190,1)&#34;,&#34;rgba(74,87,134,1)&#34;,&#34;rgba(139,142,0,1)&#34;,&#34;rgba(0,106,133,1)&#34;,&#34;rgba(0,133,46,1)&#34;,&#34;rgba(78,128,62,1)&#34;,&#34;rgba(0,108,130,1)&#34;,&#34;rgba(0,151,46,1)&#34;,&#34;rgba(0,144,55,1)&#34;,&#34;rgba(76,113,30,1)&#34;,&#34;rgba(83,28,41,1)&#34;,&#34;rgba(0,114,168,1)&#34;,&#34;rgba(59,38,43,1)&#34;,&#34;rgba(76,150,40,1)&#34;,&#34;rgba(105,138,53,1)&#34;,&#34;rgba(101,131,0,1)&#34;,&#34;rgba(185,102,18,1)&#34;,&#34;rgba(159,89,24,1)&#34;],&#34;line&#34;:{&#34;color&#34;:[&#34;rgba(77,39,47,1)&#34;,&#34;rgba(0,129,115,1)&#34;,&#34;rgba(34,12,16,1)&#34;,&#34;rgba(219,64,66,1)&#34;,&#34;rgba(64,46,46,1)&#34;,&#34;rgba(106,32,35,1)&#34;,&#34;rgba(52,34,50,1)&#34;,&#34;rgba(87,137,0,1)&#34;,&#34;rgba(49,129,28,1)&#34;,&#34;rgba(107,129,63,1)&#34;,&#34;rgba(0,146,186,1)&#34;,&#34;rgba(75,56,66,1)&#34;,&#34;rgba(159,52,61,1)&#34;,&#34;rgba(0,173,123,1)&#34;,&#34;rgba(82,170,35,1)&#34;,&#34;rgba(81,51,61,1)&#34;,&#34;rgba(11,128,58,1)&#34;,&#34;rgba(64,93,68,1)&#34;,&#34;rgba(84,155,194,1)&#34;,&#34;rgba(112,146,0,1)&#34;,&#34;rgba(85,152,100,1)&#34;,&#34;rgba(103,32,44,1)&#34;,&#34;rgba(110,118,0,1)&#34;,&#34;rgba(0,126,58,1)&#34;,&#34;rgba(56,163,55,1)&#34;,&#34;rgba(103,106,32,1)&#34;,&#34;rgba(85,66,59,1)&#34;,&#34;rgba(133,196,0,1)&#34;,&#34;rgba(66,95,70,1)&#34;,&#34;rgba(0,157,66,1)&#34;,&#34;rgba(55,131,60,1)&#34;,&#34;rgba(49,172,0,1)&#34;,&#34;rgba(83,144,0,1)&#34;,&#34;rgba(196,54,40,1)&#34;,&#34;rgba(133,143,0,1)&#34;,&#34;rgba(155,31,44,1)&#34;,&#34;rgba(0,156,61,1)&#34;,&#34;rgba(185,32,42,1)&#34;,&#34;rgba(80,81,44,1)&#34;,&#34;rgba(138,136,132,1)&#34;,&#34;rgba(130,33,34,1)&#34;,&#34;rgba(50,157,134,1)&#34;,&#34;rgba(111,102,29,1)&#34;,&#34;rgba(0,141,59,1)&#34;,&#34;rgba(0,110,69,1)&#34;,&#34;rgba(0,110,122,1)&#34;,&#34;rgba(134,26,49,1)&#34;,&#34;rgba(51,144,0,1)&#34;,&#34;rgba(66,122,15,1)&#34;,&#34;rgba(187,196,225,1)&#34;,&#34;rgba(41,162,52,1)&#34;,&#34;rgba(82,120,30,1)&#34;,&#34;rgba(4,149,9,1)&#34;,&#34;rgba(135,125,0,1)&#34;,&#34;rgba(120,19,29,1)&#34;,&#34;rgba(80,155,53,1)&#34;,&#34;rgba(0,132,212,1)&#34;,&#34;rgba(0,178,123,1)&#34;,&#34;rgba(0,105,127,1)&#34;,&#34;rgba(125,39,43,1)&#34;,&#34;rgba(68,162,18,1)&#34;,&#34;rgba(186,158,0,1)&#34;,&#34;rgba(110,48,59,1)&#34;,&#34;rgba(50,94,61,1)&#34;,&#34;rgba(40,137,41,1)&#34;,&#34;rgba(120,30,33,1)&#34;,&#34;rgba(99,139,0,1)&#34;,&#34;rgba(26,27,32,1)&#34;,&#34;rgba(228,124,0,1)&#34;,&#34;rgba(131,35,48,1)&#34;,&#34;rgba(131,127,65,1)&#34;,&#34;rgba(84,110,13,1)&#34;,&#34;rgba(97,31,34,1)&#34;,&#34;rgba(48,130,44,1)&#34;,&#34;rgba(102,39,46,1)&#34;,&#34;rgba(122,119,12,1)&#34;,&#34;rgba(110,118,0,1)&#34;,&#34;rgba(59,110,61,1)&#34;,&#34;rgba(151,41,49,1)&#34;,&#34;rgba(0,150,88,1)&#34;,&#34;rgba(87,59,57,1)&#34;,&#34;rgba(29,150,60,1)&#34;,&#34;rgba(0,220,190,1)&#34;,&#34;rgba(74,87,134,1)&#34;,&#34;rgba(139,142,0,1)&#34;,&#34;rgba(0,106,133,1)&#34;,&#34;rgba(0,133,46,1)&#34;,&#34;rgba(78,128,62,1)&#34;,&#34;rgba(0,108,130,1)&#34;,&#34;rgba(0,151,46,1)&#34;,&#34;rgba(0,144,55,1)&#34;,&#34;rgba(76,113,30,1)&#34;,&#34;rgba(83,28,41,1)&#34;,&#34;rgba(0,114,168,1)&#34;,&#34;rgba(59,38,43,1)&#34;,&#34;rgba(76,150,40,1)&#34;,&#34;rgba(105,138,53,1)&#34;,&#34;rgba(101,131,0,1)&#34;,&#34;rgba(185,102,18,1)&#34;,&#34;rgba(159,89,24,1)&#34;]}},&#34;textfont&#34;:{&#34;color&#34;:[&#34;rgba(77,39,47,1)&#34;,&#34;rgba(0,129,115,1)&#34;,&#34;rgba(34,12,16,1)&#34;,&#34;rgba(219,64,66,1)&#34;,&#34;rgba(64,46,46,1)&#34;,&#34;rgba(106,32,35,1)&#34;,&#34;rgba(52,34,50,1)&#34;,&#34;rgba(87,137,0,1)&#34;,&#34;rgba(49,129,28,1)&#34;,&#34;rgba(107,129,63,1)&#34;,&#34;rgba(0,146,186,1)&#34;,&#34;rgba(75,56,66,1)&#34;,&#34;rgba(159,52,61,1)&#34;,&#34;rgba(0,173,123,1)&#34;,&#34;rgba(82,170,35,1)&#34;,&#34;rgba(81,51,61,1)&#34;,&#34;rgba(11,128,58,1)&#34;,&#34;rgba(64,93,68,1)&#34;,&#34;rgba(84,155,194,1)&#34;,&#34;rgba(112,146,0,1)&#34;,&#34;rgba(85,152,100,1)&#34;,&#34;rgba(103,32,44,1)&#34;,&#34;rgba(110,118,0,1)&#34;,&#34;rgba(0,126,58,1)&#34;,&#34;rgba(56,163,55,1)&#34;,&#34;rgba(103,106,32,1)&#34;,&#34;rgba(85,66,59,1)&#34;,&#34;rgba(133,196,0,1)&#34;,&#34;rgba(66,95,70,1)&#34;,&#34;rgba(0,157,66,1)&#34;,&#34;rgba(55,131,60,1)&#34;,&#34;rgba(49,172,0,1)&#34;,&#34;rgba(83,144,0,1)&#34;,&#34;rgba(196,54,40,1)&#34;,&#34;rgba(133,143,0,1)&#34;,&#34;rgba(155,31,44,1)&#34;,&#34;rgba(0,156,61,1)&#34;,&#34;rgba(185,32,42,1)&#34;,&#34;rgba(80,81,44,1)&#34;,&#34;rgba(138,136,132,1)&#34;,&#34;rgba(130,33,34,1)&#34;,&#34;rgba(50,157,134,1)&#34;,&#34;rgba(111,102,29,1)&#34;,&#34;rgba(0,141,59,1)&#34;,&#34;rgba(0,110,69,1)&#34;,&#34;rgba(0,110,122,1)&#34;,&#34;rgba(134,26,49,1)&#34;,&#34;rgba(51,144,0,1)&#34;,&#34;rgba(66,122,15,1)&#34;,&#34;rgba(187,196,225,1)&#34;,&#34;rgba(41,162,52,1)&#34;,&#34;rgba(82,120,30,1)&#34;,&#34;rgba(4,149,9,1)&#34;,&#34;rgba(135,125,0,1)&#34;,&#34;rgba(120,19,29,1)&#34;,&#34;rgba(80,155,53,1)&#34;,&#34;rgba(0,132,212,1)&#34;,&#34;rgba(0,178,123,1)&#34;,&#34;rgba(0,105,127,1)&#34;,&#34;rgba(125,39,43,1)&#34;,&#34;rgba(68,162,18,1)&#34;,&#34;rgba(186,158,0,1)&#34;,&#34;rgba(110,48,59,1)&#34;,&#34;rgba(50,94,61,1)&#34;,&#34;rgba(40,137,41,1)&#34;,&#34;rgba(120,30,33,1)&#34;,&#34;rgba(99,139,0,1)&#34;,&#34;rgba(26,27,32,1)&#34;,&#34;rgba(228,124,0,1)&#34;,&#34;rgba(131,35,48,1)&#34;,&#34;rgba(131,127,65,1)&#34;,&#34;rgba(84,110,13,1)&#34;,&#34;rgba(97,31,34,1)&#34;,&#34;rgba(48,130,44,1)&#34;,&#34;rgba(102,39,46,1)&#34;,&#34;rgba(122,119,12,1)&#34;,&#34;rgba(110,118,0,1)&#34;,&#34;rgba(59,110,61,1)&#34;,&#34;rgba(151,41,49,1)&#34;,&#34;rgba(0,150,88,1)&#34;,&#34;rgba(87,59,57,1)&#34;,&#34;rgba(29,150,60,1)&#34;,&#34;rgba(0,220,190,1)&#34;,&#34;rgba(74,87,134,1)&#34;,&#34;rgba(139,142,0,1)&#34;,&#34;rgba(0,106,133,1)&#34;,&#34;rgba(0,133,46,1)&#34;,&#34;rgba(78,128,62,1)&#34;,&#34;rgba(0,108,130,1)&#34;,&#34;rgba(0,151,46,1)&#34;,&#34;rgba(0,144,55,1)&#34;,&#34;rgba(76,113,30,1)&#34;,&#34;rgba(83,28,41,1)&#34;,&#34;rgba(0,114,168,1)&#34;,&#34;rgba(59,38,43,1)&#34;,&#34;rgba(76,150,40,1)&#34;,&#34;rgba(105,138,53,1)&#34;,&#34;rgba(101,131,0,1)&#34;,&#34;rgba(185,102,18,1)&#34;,&#34;rgba(159,89,24,1)&#34;]},&#34;line&#34;:{&#34;color&#34;:[&#34;rgba(77,39,47,1)&#34;,&#34;rgba(0,129,115,1)&#34;,&#34;rgba(34,12,16,1)&#34;,&#34;rgba(219,64,66,1)&#34;,&#34;rgba(64,46,46,1)&#34;,&#34;rgba(106,32,35,1)&#34;,&#34;rgba(52,34,50,1)&#34;,&#34;rgba(87,137,0,1)&#34;,&#34;rgba(49,129,28,1)&#34;,&#34;rgba(107,129,63,1)&#34;,&#34;rgba(0,146,186,1)&#34;,&#34;rgba(75,56,66,1)&#34;,&#34;rgba(159,52,61,1)&#34;,&#34;rgba(0,173,123,1)&#34;,&#34;rgba(82,170,35,1)&#34;,&#34;rgba(81,51,61,1)&#34;,&#34;rgba(11,128,58,1)&#34;,&#34;rgba(64,93,68,1)&#34;,&#34;rgba(84,155,194,1)&#34;,&#34;rgba(112,146,0,1)&#34;,&#34;rgba(85,152,100,1)&#34;,&#34;rgba(103,32,44,1)&#34;,&#34;rgba(110,118,0,1)&#34;,&#34;rgba(0,126,58,1)&#34;,&#34;rgba(56,163,55,1)&#34;,&#34;rgba(103,106,32,1)&#34;,&#34;rgba(85,66,59,1)&#34;,&#34;rgba(133,196,0,1)&#34;,&#34;rgba(66,95,70,1)&#34;,&#34;rgba(0,157,66,1)&#34;,&#34;rgba(55,131,60,1)&#34;,&#34;rgba(49,172,0,1)&#34;,&#34;rgba(83,144,0,1)&#34;,&#34;rgba(196,54,40,1)&#34;,&#34;rgba(133,143,0,1)&#34;,&#34;rgba(155,31,44,1)&#34;,&#34;rgba(0,156,61,1)&#34;,&#34;rgba(185,32,42,1)&#34;,&#34;rgba(80,81,44,1)&#34;,&#34;rgba(138,136,132,1)&#34;,&#34;rgba(130,33,34,1)&#34;,&#34;rgba(50,157,134,1)&#34;,&#34;rgba(111,102,29,1)&#34;,&#34;rgba(0,141,59,1)&#34;,&#34;rgba(0,110,69,1)&#34;,&#34;rgba(0,110,122,1)&#34;,&#34;rgba(134,26,49,1)&#34;,&#34;rgba(51,144,0,1)&#34;,&#34;rgba(66,122,15,1)&#34;,&#34;rgba(187,196,225,1)&#34;,&#34;rgba(41,162,52,1)&#34;,&#34;rgba(82,120,30,1)&#34;,&#34;rgba(4,149,9,1)&#34;,&#34;rgba(135,125,0,1)&#34;,&#34;rgba(120,19,29,1)&#34;,&#34;rgba(80,155,53,1)&#34;,&#34;rgba(0,132,212,1)&#34;,&#34;rgba(0,178,123,1)&#34;,&#34;rgba(0,105,127,1)&#34;,&#34;rgba(125,39,43,1)&#34;,&#34;rgba(68,162,18,1)&#34;,&#34;rgba(186,158,0,1)&#34;,&#34;rgba(110,48,59,1)&#34;,&#34;rgba(50,94,61,1)&#34;,&#34;rgba(40,137,41,1)&#34;,&#34;rgba(120,30,33,1)&#34;,&#34;rgba(99,139,0,1)&#34;,&#34;rgba(26,27,32,1)&#34;,&#34;rgba(228,124,0,1)&#34;,&#34;rgba(131,35,48,1)&#34;,&#34;rgba(131,127,65,1)&#34;,&#34;rgba(84,110,13,1)&#34;,&#34;rgba(97,31,34,1)&#34;,&#34;rgba(48,130,44,1)&#34;,&#34;rgba(102,39,46,1)&#34;,&#34;rgba(122,119,12,1)&#34;,&#34;rgba(110,118,0,1)&#34;,&#34;rgba(59,110,61,1)&#34;,&#34;rgba(151,41,49,1)&#34;,&#34;rgba(0,150,88,1)&#34;,&#34;rgba(87,59,57,1)&#34;,&#34;rgba(29,150,60,1)&#34;,&#34;rgba(0,220,190,1)&#34;,&#34;rgba(74,87,134,1)&#34;,&#34;rgba(139,142,0,1)&#34;,&#34;rgba(0,106,133,1)&#34;,&#34;rgba(0,133,46,1)&#34;,&#34;rgba(78,128,62,1)&#34;,&#34;rgba(0,108,130,1)&#34;,&#34;rgba(0,151,46,1)&#34;,&#34;rgba(0,144,55,1)&#34;,&#34;rgba(76,113,30,1)&#34;,&#34;rgba(83,28,41,1)&#34;,&#34;rgba(0,114,168,1)&#34;,&#34;rgba(59,38,43,1)&#34;,&#34;rgba(76,150,40,1)&#34;,&#34;rgba(105,138,53,1)&#34;,&#34;rgba(101,131,0,1)&#34;,&#34;rgba(185,102,18,1)&#34;,&#34;rgba(159,89,24,1)&#34;]},&#34;frame&#34;:null}],&#34;highlight&#34;:{&#34;on&#34;:&#34;plotly_click&#34;,&#34;persistent&#34;:false,&#34;dynamic&#34;:false,&#34;selectize&#34;:false,&#34;opacityDim&#34;:0.2,&#34;selected&#34;:{&#34;opacity&#34;:1},&#34;debounce&#34;:0},&#34;shinyEvents&#34;:[&#34;plotly_hover&#34;,&#34;plotly_click&#34;,&#34;plotly_selected&#34;,&#34;plotly_relayout&#34;,&#34;plotly_brushed&#34;,&#34;plotly_brushing&#34;,&#34;plotly_clickannotation&#34;,&#34;plotly_doubleclick&#34;,&#34;plotly_deselect&#34;,&#34;plotly_afterplot&#34;,&#34;plotly_sunburstclick&#34;],&#34;base_url&#34;:&#34;https://plot.ly&#34;},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+&lt;p&gt;If you play around with this enough, you’ll realize that plotting all of your 3D data on a plot as individual points is kind of cumbersome when you have thousands of points; you can’t really tell which regions of your color space are more or less dense. It may better suit your purposes to cluster the data a bit first, and then plot the clusters:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;clusters &amp;lt;- extractClusters(getKMeanColors(img, color.space = &amp;quot;Lab&amp;quot;,
+                                           ref.white = &amp;quot;D65&amp;quot;,
+                                           n = 50, plotting = F))
+colnames(clusters) &amp;lt;- c(&amp;quot;L&amp;quot;, &amp;quot;a&amp;quot;, &amp;quot;b&amp;quot;, &amp;quot;Pct&amp;quot;)
+
+# We can do this with a colordistance function...
+scatter3dclusters(clusters, color.space = &amp;quot;lab&amp;quot;, scaling = 100)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/modifying-pixel-plots/index_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# we can also use scatter3D, with a bit of a hack to get different point sizes
+col_vector &amp;lt;- rgb(convertColor(clusters[ , 1:3], from = &amp;quot;Lab&amp;quot;, to = &amp;quot;sRGB&amp;quot;))
+
+# make blank plot
+scatter3D(clusters$L, clusters$a, clusters$b, 
+          cex = 0, colkey = F, phi = 35, theta = 60,
+          xlab = &amp;quot;L&amp;quot;, ylab = &amp;quot;a&amp;quot;, zlab = &amp;quot;b&amp;quot;)
+
+# set scale multiplier for point sizes
+scale &amp;lt;- 80
+
+# add one point at a time, setting size with the cex argument
+for (i in 1:nrow(clusters)) {
+  scatter3D(x = clusters$L[i],
+           y = clusters$a[i],
+           z = clusters$b[i],
+           cex = clusters$Pct[i] * scale, 
+           pch = 19, alpha = 0.5,
+           col = col_vector[i], add = TRUE)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/modifying-pixel-plots/index_files/figure-html/unnamed-chunk-6-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# or, we can just use plotly again
+plot_ly(data = clusters,
+        x = ~L, y = ~a, z = ~b, 
+        type = &amp;quot;scatter3d&amp;quot;, mode = &amp;quot;markers&amp;quot;, 
+        color = I(col_vector), # this is a bit of a hack and you&#39;ll get a warning...
+        colors = col_vector, size = ~Pct)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;htmlwidget-2&#34; style=&#34;width:672px;height:480px;&#34; class=&#34;plotly html-widget&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-2&#34;&gt;{&#34;x&#34;:{&#34;visdat&#34;:{&#34;948a2bab3c7f&#34;:[&#34;function () &#34;,&#34;plotlyVisDat&#34;]},&#34;cur_data&#34;:&#34;948a2bab3c7f&#34;,&#34;attrs&#34;:{&#34;948a2bab3c7f&#34;:{&#34;x&#34;:{},&#34;y&#34;:{},&#34;z&#34;:{},&#34;mode&#34;:&#34;markers&#34;,&#34;color&#34;:[&#34;#647933&#34;,&#34;#732429&#34;,&#34;#986516&#34;,&#34;#832128&#34;,&#34;#232023&#34;,&#34;#138233&#34;,&#34;#943E1F&#34;,&#34;#17AEAB&#34;,&#34;#0C8864&#34;,&#34;#499535&#34;,&#34;#384D39&#34;,&#34;#573F3B&#34;,&#34;#9F8008&#34;,&#34;#047579&#34;,&#34;#077C6D&#34;,&#34;#108DB0&#34;,&#34;#BA2E2C&#34;,&#34;#06667C&#34;,&#34;#0DD7B4&#34;,&#34;#86B20D&#34;,&#34;#8B8784&#34;,&#34;#5F780B&#34;,&#34;#766D2A&#34;,&#34;#C06012&#34;,&#34;#1860A9&#34;,&#34;#62512B&#34;,&#34;#B1A206&#34;,&#34;#545D2C&#34;,&#34;#37CA7A&#34;,&#34;#22587E&#34;,&#34;#3A9610&#34;,&#34;#55BC26&#34;,&#34;#66242C&#34;,&#34;#473037&#34;,&#34;#C34622&#34;,&#34;#038E51&#34;,&#34;#1EA43A&#34;,&#34;#C17C08&#34;,&#34;#4B8407&#34;,&#34;#10753B&#34;,&#34;#758F07&#34;,&#34;#15AA7C&#34;,&#34;#265F37&#34;,&#34;#7E1C32&#34;,&#34;#119846&#34;,&#34;#9C212B&#34;,&#34;#898609&#34;,&#34;#582531&#34;,&#34;#5E9706&#34;,&#34;#3F7624&#34;],&#34;size&#34;:{},&#34;colors&#34;:[&#34;#647933&#34;,&#34;#732429&#34;,&#34;#986516&#34;,&#34;#832128&#34;,&#34;#232023&#34;,&#34;#138233&#34;,&#34;#943E1F&#34;,&#34;#17AEAB&#34;,&#34;#0C8864&#34;,&#34;#499535&#34;,&#34;#384D39&#34;,&#34;#573F3B&#34;,&#34;#9F8008&#34;,&#34;#047579&#34;,&#34;#077C6D&#34;,&#34;#108DB0&#34;,&#34;#BA2E2C&#34;,&#34;#06667C&#34;,&#34;#0DD7B4&#34;,&#34;#86B20D&#34;,&#34;#8B8784&#34;,&#34;#5F780B&#34;,&#34;#766D2A&#34;,&#34;#C06012&#34;,&#34;#1860A9&#34;,&#34;#62512B&#34;,&#34;#B1A206&#34;,&#34;#545D2C&#34;,&#34;#37CA7A&#34;,&#34;#22587E&#34;,&#34;#3A9610&#34;,&#34;#55BC26&#34;,&#34;#66242C&#34;,&#34;#473037&#34;,&#34;#C34622&#34;,&#34;#038E51&#34;,&#34;#1EA43A&#34;,&#34;#C17C08&#34;,&#34;#4B8407&#34;,&#34;#10753B&#34;,&#34;#758F07&#34;,&#34;#15AA7C&#34;,&#34;#265F37&#34;,&#34;#7E1C32&#34;,&#34;#119846&#34;,&#34;#9C212B&#34;,&#34;#898609&#34;,&#34;#582531&#34;,&#34;#5E9706&#34;,&#34;#3F7624&#34;],&#34;alpha_stroke&#34;:1,&#34;sizes&#34;:[10,100],&#34;spans&#34;:[1,20],&#34;type&#34;:&#34;scatter3d&#34;}},&#34;layout&#34;:{&#34;margin&#34;:{&#34;b&#34;:40,&#34;l&#34;:60,&#34;t&#34;:25,&#34;r&#34;:10},&#34;scene&#34;:{&#34;xaxis&#34;:{&#34;title&#34;:&#34;L&#34;},&#34;yaxis&#34;:{&#34;title&#34;:&#34;a&#34;},&#34;zaxis&#34;:{&#34;title&#34;:&#34;b&#34;}},&#34;hovermode&#34;:&#34;closest&#34;,&#34;showlegend&#34;:false},&#34;source&#34;:&#34;A&#34;,&#34;config&#34;:{&#34;showSendToCloud&#34;:false},&#34;data&#34;:[{&#34;x&#34;:[47.6470370380395,26.9343668030093,47.1828825841296,29.6773078450699,12.7045820506114,47.424072153912,37.7095435680787,64.3966358719047,50.2170710701797,55.2008575013163,30.5639393862333,29.2352057210328,54.8739847444633,44.21651687503,46.4348311991777,54.3461739170174,42.2864967235475,39.4002815788575,77.246141494701,67.3417368584501,56.4821125357197,46.7293021620499,45.4986153446182,51.5290761538363,40.1338361320406,35.3775725076101,65.7951807953912,37.6049924843794,72.5005589738049,35.5332956130365,54.909869921715,68.0826258130497,24.7407170414244,22.5787090735333,47.2231676738661,51.6978881209399,58.9315019517576,57.9255190148564,49.6384118056201,42.7699221303017,55.5967406937468,61.8862757522115,35.7827664244431,28.3085165518734,55.1722752062099,34.8245048991748,54.4721552035387,22.5158972154844,56.5773369142028,44.269889046976],&#34;y&#34;:[-19.1560055874448,35.1558839259183,14.2720406280373,41.9759780318741,2.27151473468494,-46.9672270333645,34.3138626384862,-36.1794957895637,-40.2015036246707,-42.360763899665,-13.1006131883921,9.63830700679229,2.01930745644207,-25.3929355968667,-32.9400403387384,-18.7144718129058,55.1505786880039,-16.2512192026847,-52.1150378079515,-35.0058101398964,1.02962325971967,-23.1977287309345,-5.20162909915775,34.3707882925485,6.26556465863796,1.71232485126426,-8.39391101221517,-11.537025012239,-56.2902446947673,-4.37777177199427,-49.6422187683071,-55.1756294819106,30.2241914435395,11.7955865367038,48.1326705218909,-47.3050354036041,-56.1539990811367,19.1817983458343,-37.485801469206,-41.0176083687218,-25.7079300352572,-47.2926881095034,-28.8228745220873,42.6000075381491,-52.123231334113,50.0622436786647,-11.744290691161,24.877420489759,-38.5316644028869,-33.7940092938693],&#34;z&#34;:[35.0345104570875,15.8418904092597,48.9346846157969,20.9249840908074,-1.78570914036779,33.9657948063168,36.0165415746418,-9.12817187084792,10.7727716382048,42.0852089437363,9.12095630563548,6.53578709802711,58.7122851209248,-10.4896224844523,0.31534768082993,-27.1244338341843,35.7715089466191,-19.564988924393,5.09492563363152,66.8339063421687,1.77215759159408,49.418203672323,37.6199540518151,55.9747127260182,-45.4109435932669,24.7964325796627,67.9103022988535,26.7723537600718,28.8802186644586,-26.5501909597621,54.4569417630617,61.1975442753346,10.9134354860685,-0.242929238594548,46.7112900443923,23.6139098568036,43.9314187088593,62.7749914938315,51.9201408757226,24.0782770255091,57.8980119441862,13.286134167394,17.2635276892329,12.5309090043427,33.8323009989432,26.1273787908098,57.374791997851,4.05616250233049,58.1589172091652,37.9475390129431],&#34;mode&#34;:&#34;markers&#34;,&#34;type&#34;:&#34;scatter3d&#34;,&#34;marker&#34;:{&#34;color&#34;:[&#34;rgba(100,121,51,1)&#34;,&#34;rgba(115,36,41,1)&#34;,&#34;rgba(152,101,22,1)&#34;,&#34;rgba(131,33,40,1)&#34;,&#34;rgba(35,32,35,1)&#34;,&#34;rgba(19,130,51,1)&#34;,&#34;rgba(148,62,31,1)&#34;,&#34;rgba(23,174,171,1)&#34;,&#34;rgba(12,136,100,1)&#34;,&#34;rgba(73,149,53,1)&#34;,&#34;rgba(56,77,57,1)&#34;,&#34;rgba(87,63,59,1)&#34;,&#34;rgba(159,128,8,1)&#34;,&#34;rgba(4,117,121,1)&#34;,&#34;rgba(7,124,109,1)&#34;,&#34;rgba(16,141,176,1)&#34;,&#34;rgba(186,46,44,1)&#34;,&#34;rgba(6,102,124,1)&#34;,&#34;rgba(13,215,180,1)&#34;,&#34;rgba(134,178,13,1)&#34;,&#34;rgba(139,135,132,1)&#34;,&#34;rgba(95,120,11,1)&#34;,&#34;rgba(118,109,42,1)&#34;,&#34;rgba(192,96,18,1)&#34;,&#34;rgba(24,96,169,1)&#34;,&#34;rgba(98,81,43,1)&#34;,&#34;rgba(177,162,6,1)&#34;,&#34;rgba(84,93,44,1)&#34;,&#34;rgba(55,202,122,1)&#34;,&#34;rgba(34,88,126,1)&#34;,&#34;rgba(58,150,16,1)&#34;,&#34;rgba(85,188,38,1)&#34;,&#34;rgba(102,36,44,1)&#34;,&#34;rgba(71,48,55,1)&#34;,&#34;rgba(195,70,34,1)&#34;,&#34;rgba(3,142,81,1)&#34;,&#34;rgba(30,164,58,1)&#34;,&#34;rgba(193,124,8,1)&#34;,&#34;rgba(75,132,7,1)&#34;,&#34;rgba(16,117,59,1)&#34;,&#34;rgba(117,143,7,1)&#34;,&#34;rgba(21,170,124,1)&#34;,&#34;rgba(38,95,55,1)&#34;,&#34;rgba(126,28,50,1)&#34;,&#34;rgba(17,152,70,1)&#34;,&#34;rgba(156,33,43,1)&#34;,&#34;rgba(137,134,9,1)&#34;,&#34;rgba(88,37,49,1)&#34;,&#34;rgba(94,151,6,1)&#34;,&#34;rgba(63,118,36,1)&#34;],&#34;size&#34;:[55.8780487804878,100,19.8780487804878,68.609756097561,46.8780487804878,56.0975609756098,24.2682926829268,18.5609756097561,57.1951219512195,52.1463414634146,31.5121951219512,50.390243902439,39.6341463414634,60.2682926829268,56.7560975609756,10.6585365853659,48.4146341463415,61.3658536585366,13.5121951219512,21.4146341463415,17.2439024390244,54.5609756097561,50.1707317073171,34.8048780487805,10,33.2682926829268,18.1219512195122,53.2439024390244,11.7560975609756,28.4390243902439,74.3170731707317,24.4878048780488,83.3170731707317,67.9512195121951,42.4878048780488,70.3658536585366,56.5365853658537,26.9024390243902,74.9756097560976,40.9512195121951,59.609756097561,19.4390243902439,29.0975609756098,32.390243902439,75.4146341463415,60.7073170731707,51.0487804878049,49.7317073170732,55.219512195122,52.5853658536585],&#34;sizemode&#34;:&#34;area&#34;,&#34;line&#34;:{&#34;color&#34;:[&#34;rgba(100,121,51,1)&#34;,&#34;rgba(115,36,41,1)&#34;,&#34;rgba(152,101,22,1)&#34;,&#34;rgba(131,33,40,1)&#34;,&#34;rgba(35,32,35,1)&#34;,&#34;rgba(19,130,51,1)&#34;,&#34;rgba(148,62,31,1)&#34;,&#34;rgba(23,174,171,1)&#34;,&#34;rgba(12,136,100,1)&#34;,&#34;rgba(73,149,53,1)&#34;,&#34;rgba(56,77,57,1)&#34;,&#34;rgba(87,63,59,1)&#34;,&#34;rgba(159,128,8,1)&#34;,&#34;rgba(4,117,121,1)&#34;,&#34;rgba(7,124,109,1)&#34;,&#34;rgba(16,141,176,1)&#34;,&#34;rgba(186,46,44,1)&#34;,&#34;rgba(6,102,124,1)&#34;,&#34;rgba(13,215,180,1)&#34;,&#34;rgba(134,178,13,1)&#34;,&#34;rgba(139,135,132,1)&#34;,&#34;rgba(95,120,11,1)&#34;,&#34;rgba(118,109,42,1)&#34;,&#34;rgba(192,96,18,1)&#34;,&#34;rgba(24,96,169,1)&#34;,&#34;rgba(98,81,43,1)&#34;,&#34;rgba(177,162,6,1)&#34;,&#34;rgba(84,93,44,1)&#34;,&#34;rgba(55,202,122,1)&#34;,&#34;rgba(34,88,126,1)&#34;,&#34;rgba(58,150,16,1)&#34;,&#34;rgba(85,188,38,1)&#34;,&#34;rgba(102,36,44,1)&#34;,&#34;rgba(71,48,55,1)&#34;,&#34;rgba(195,70,34,1)&#34;,&#34;rgba(3,142,81,1)&#34;,&#34;rgba(30,164,58,1)&#34;,&#34;rgba(193,124,8,1)&#34;,&#34;rgba(75,132,7,1)&#34;,&#34;rgba(16,117,59,1)&#34;,&#34;rgba(117,143,7,1)&#34;,&#34;rgba(21,170,124,1)&#34;,&#34;rgba(38,95,55,1)&#34;,&#34;rgba(126,28,50,1)&#34;,&#34;rgba(17,152,70,1)&#34;,&#34;rgba(156,33,43,1)&#34;,&#34;rgba(137,134,9,1)&#34;,&#34;rgba(88,37,49,1)&#34;,&#34;rgba(94,151,6,1)&#34;,&#34;rgba(63,118,36,1)&#34;]}},&#34;textfont&#34;:{&#34;color&#34;:[&#34;rgba(100,121,51,1)&#34;,&#34;rgba(115,36,41,1)&#34;,&#34;rgba(152,101,22,1)&#34;,&#34;rgba(131,33,40,1)&#34;,&#34;rgba(35,32,35,1)&#34;,&#34;rgba(19,130,51,1)&#34;,&#34;rgba(148,62,31,1)&#34;,&#34;rgba(23,174,171,1)&#34;,&#34;rgba(12,136,100,1)&#34;,&#34;rgba(73,149,53,1)&#34;,&#34;rgba(56,77,57,1)&#34;,&#34;rgba(87,63,59,1)&#34;,&#34;rgba(159,128,8,1)&#34;,&#34;rgba(4,117,121,1)&#34;,&#34;rgba(7,124,109,1)&#34;,&#34;rgba(16,141,176,1)&#34;,&#34;rgba(186,46,44,1)&#34;,&#34;rgba(6,102,124,1)&#34;,&#34;rgba(13,215,180,1)&#34;,&#34;rgba(134,178,13,1)&#34;,&#34;rgba(139,135,132,1)&#34;,&#34;rgba(95,120,11,1)&#34;,&#34;rgba(118,109,42,1)&#34;,&#34;rgba(192,96,18,1)&#34;,&#34;rgba(24,96,169,1)&#34;,&#34;rgba(98,81,43,1)&#34;,&#34;rgba(177,162,6,1)&#34;,&#34;rgba(84,93,44,1)&#34;,&#34;rgba(55,202,122,1)&#34;,&#34;rgba(34,88,126,1)&#34;,&#34;rgba(58,150,16,1)&#34;,&#34;rgba(85,188,38,1)&#34;,&#34;rgba(102,36,44,1)&#34;,&#34;rgba(71,48,55,1)&#34;,&#34;rgba(195,70,34,1)&#34;,&#34;rgba(3,142,81,1)&#34;,&#34;rgba(30,164,58,1)&#34;,&#34;rgba(193,124,8,1)&#34;,&#34;rgba(75,132,7,1)&#34;,&#34;rgba(16,117,59,1)&#34;,&#34;rgba(117,143,7,1)&#34;,&#34;rgba(21,170,124,1)&#34;,&#34;rgba(38,95,55,1)&#34;,&#34;rgba(126,28,50,1)&#34;,&#34;rgba(17,152,70,1)&#34;,&#34;rgba(156,33,43,1)&#34;,&#34;rgba(137,134,9,1)&#34;,&#34;rgba(88,37,49,1)&#34;,&#34;rgba(94,151,6,1)&#34;,&#34;rgba(63,118,36,1)&#34;],&#34;size&#34;:[55.8780487804878,100,19.8780487804878,68.609756097561,46.8780487804878,56.0975609756098,24.2682926829268,18.5609756097561,57.1951219512195,52.1463414634146,31.5121951219512,50.390243902439,39.6341463414634,60.2682926829268,56.7560975609756,10.6585365853659,48.4146341463415,61.3658536585366,13.5121951219512,21.4146341463415,17.2439024390244,54.5609756097561,50.1707317073171,34.8048780487805,10,33.2682926829268,18.1219512195122,53.2439024390244,11.7560975609756,28.4390243902439,74.3170731707317,24.4878048780488,83.3170731707317,67.9512195121951,42.4878048780488,70.3658536585366,56.5365853658537,26.9024390243902,74.9756097560976,40.9512195121951,59.609756097561,19.4390243902439,29.0975609756098,32.390243902439,75.4146341463415,60.7073170731707,51.0487804878049,49.7317073170732,55.219512195122,52.5853658536585]},&#34;error_y&#34;:{&#34;width&#34;:[]},&#34;error_x&#34;:{&#34;width&#34;:[]},&#34;line&#34;:{&#34;color&#34;:[&#34;rgba(100,121,51,1)&#34;,&#34;rgba(115,36,41,1)&#34;,&#34;rgba(152,101,22,1)&#34;,&#34;rgba(131,33,40,1)&#34;,&#34;rgba(35,32,35,1)&#34;,&#34;rgba(19,130,51,1)&#34;,&#34;rgba(148,62,31,1)&#34;,&#34;rgba(23,174,171,1)&#34;,&#34;rgba(12,136,100,1)&#34;,&#34;rgba(73,149,53,1)&#34;,&#34;rgba(56,77,57,1)&#34;,&#34;rgba(87,63,59,1)&#34;,&#34;rgba(159,128,8,1)&#34;,&#34;rgba(4,117,121,1)&#34;,&#34;rgba(7,124,109,1)&#34;,&#34;rgba(16,141,176,1)&#34;,&#34;rgba(186,46,44,1)&#34;,&#34;rgba(6,102,124,1)&#34;,&#34;rgba(13,215,180,1)&#34;,&#34;rgba(134,178,13,1)&#34;,&#34;rgba(139,135,132,1)&#34;,&#34;rgba(95,120,11,1)&#34;,&#34;rgba(118,109,42,1)&#34;,&#34;rgba(192,96,18,1)&#34;,&#34;rgba(24,96,169,1)&#34;,&#34;rgba(98,81,43,1)&#34;,&#34;rgba(177,162,6,1)&#34;,&#34;rgba(84,93,44,1)&#34;,&#34;rgba(55,202,122,1)&#34;,&#34;rgba(34,88,126,1)&#34;,&#34;rgba(58,150,16,1)&#34;,&#34;rgba(85,188,38,1)&#34;,&#34;rgba(102,36,44,1)&#34;,&#34;rgba(71,48,55,1)&#34;,&#34;rgba(195,70,34,1)&#34;,&#34;rgba(3,142,81,1)&#34;,&#34;rgba(30,164,58,1)&#34;,&#34;rgba(193,124,8,1)&#34;,&#34;rgba(75,132,7,1)&#34;,&#34;rgba(16,117,59,1)&#34;,&#34;rgba(117,143,7,1)&#34;,&#34;rgba(21,170,124,1)&#34;,&#34;rgba(38,95,55,1)&#34;,&#34;rgba(126,28,50,1)&#34;,&#34;rgba(17,152,70,1)&#34;,&#34;rgba(156,33,43,1)&#34;,&#34;rgba(137,134,9,1)&#34;,&#34;rgba(88,37,49,1)&#34;,&#34;rgba(94,151,6,1)&#34;,&#34;rgba(63,118,36,1)&#34;]},&#34;frame&#34;:null}],&#34;highlight&#34;:{&#34;on&#34;:&#34;plotly_click&#34;,&#34;persistent&#34;:false,&#34;dynamic&#34;:false,&#34;selectize&#34;:false,&#34;opacityDim&#34;:0.2,&#34;selected&#34;:{&#34;opacity&#34;:1},&#34;debounce&#34;:0},&#34;shinyEvents&#34;:[&#34;plotly_hover&#34;,&#34;plotly_click&#34;,&#34;plotly_selected&#34;,&#34;plotly_relayout&#34;,&#34;plotly_brushed&#34;,&#34;plotly_brushing&#34;,&#34;plotly_clickannotation&#34;,&#34;plotly_doubleclick&#34;,&#34;plotly_deselect&#34;,&#34;plotly_afterplot&#34;,&#34;plotly_sunburstclick&#34;],&#34;base_url&#34;:&#34;https://plot.ly&#34;},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
